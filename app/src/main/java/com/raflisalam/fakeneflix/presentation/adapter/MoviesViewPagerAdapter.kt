@@ -6,34 +6,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.databinding.ItemMoviesPopularBinding
+import com.raflisalam.fakeneflix.databinding.ItemViewPagerBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
 
-class MoviesPopularAdapter(private var listMoviesPopular: List<Movies>) : RecyclerView.Adapter<MoviesPopularAdapter.ViewHolder>() {
+class MoviesViewPagerAdapter(private var listMovies: List<Movies>): RecyclerView.Adapter<MoviesViewPagerAdapter.ViewPagerViewHolder>() {
 
-    inner class ViewHolder(val binding: ItemMoviesPopularBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ViewPagerViewHolder(val binding: ItemViewPagerBinding): RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMoviesPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
+        val binding = ItemViewPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewPagerViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return listMoviesPopular.size
+        return listMovies.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         with(holder) {
-            val item = listMoviesPopular[position]
+            val item = listMovies[position]
             binding.apply {
                 val posterUrl = "${Constant.poster_base_url}${item.poster}"
                 Glide.with(itemView.context)
                     .load(posterUrl)
                     .apply(RequestOptions())
                     .into(imagePoster)
-                title.text = item.title
+
             }
         }
+
     }
 
 }

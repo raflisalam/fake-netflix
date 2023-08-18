@@ -1,4 +1,11 @@
 package com.raflisalam.fakeneflix
 
-class FakeNetflixApplication {
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class FakeNetflixApplication: Application() {
+    override fun onCreate() {
+        super.onCreate()
+    }
 }
