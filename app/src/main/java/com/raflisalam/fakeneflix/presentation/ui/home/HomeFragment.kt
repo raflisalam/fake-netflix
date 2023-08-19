@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
+import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
@@ -27,6 +30,7 @@ class HomeFragment : Fragment() {
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MoviesPopularAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,10 +49,10 @@ class HomeFragment : Fragment() {
             NowPlayingFragment(),
             UpcomingFragment()
         )
-
         binding.apply {
             val adapter = ViewPagerAdapter(requireActivity(), fragmentList)
             viewPager.adapter = adapter
+            viewPager.isUserInputEnabled = false
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
@@ -58,6 +62,8 @@ class HomeFragment : Fragment() {
                 }
             }.attach()
         }
+
+
     }
 
 

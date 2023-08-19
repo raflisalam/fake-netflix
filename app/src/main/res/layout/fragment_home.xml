@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#050505"
+    android:background="#000"
     tools:context=".presentation.ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +15,12 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
+            app:tabGravity="center"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="#C0C0C0"
+            app:tabIndicatorColor="@color/white"
             app:tabMode="fixed"
+            android:background="#00FFFFFF"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.viewpager2.widget.ViewPager2
@@ -45,8 +49,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/text_head_popular"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="15dp"
             tools:listitem="@layout/item_movies_popular"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </ScrollView>

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.makeramen.roundedimageview.RoundedImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/frameLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/image_poster"
-    android:adjustViewBounds="true"
-    app:riv_corner_radius="10dp">
+    android:layout_height="match_parent">
 
-</com.makeramen.roundedimageview.RoundedImageView>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="185dp"
+        android:layout_height="280dp"
+        android:src="@drawable/poster_path4"
+        android:id="@+id/image_poster"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        app:riv_corner_radius="10dp"/>
+</FrameLayout>

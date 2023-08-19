@@ -11,6 +11,7 @@ fun getResponseMovieToModel(response: MoviesResponse?): List<Movies> {
             id = data.id ?: 0,
             title = data.title ?: "Unknown movie",
             poster = data.poster_path ?: "Unknown Movie",
+            background = data.backdrop_path ?: "Unknown Movie",
             description = data.overview ?: "Unknown Description",
             release_date = data.release_date ?: "Unknown Date",
             rating = data.vote_average ?: 0.0
