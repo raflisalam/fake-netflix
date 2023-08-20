@@ -83,7 +83,7 @@ class UpcomingFragment : Fragment() {
             viewPager.setPageTransformer(pageTransformer)
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    PositionPageFlow.onPageSelected(position, "Upcoming")
+                    PositionPageFlow.onPageSelected("Upcoming", position)
                     Log.d("pos_upcoming1", position.toString())
                 }
             })

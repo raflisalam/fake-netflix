@@ -75,7 +75,7 @@ class NowPlayingFragment : Fragment() {
 
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    PositionPageFlow.onPageSelected(position, "NowPlaying")
+                    PositionPageFlow.onPageSelected("NowPlaying", position)
                     Log.d("pos_nowPlaying1", position.toString())
                 }
             })

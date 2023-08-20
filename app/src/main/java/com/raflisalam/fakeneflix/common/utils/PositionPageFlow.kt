@@ -1,18 +1,19 @@
 package com.raflisalam.fakeneflix.common.utils
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
 object PositionPageFlow {
 
-    private val currentPageFlow = MutableStateFlow(0)
     private val currentPageName = MutableStateFlow("")
+    private val currentPageFlow = MutableStateFlow(0)
 
-    fun getCurrentPageFlow(): Flow<Int> = currentPageFlow
     fun getCurrentPageName(): Flow<String> = currentPageName
+    fun getCurrentPageFlow(): Flow<Int> = currentPageFlow
 
-    fun onPageSelected(position: Int, pageName: String) {
-        currentPageFlow.value = position
+    fun onPageSelected(pageName: String, position: Int, ) {
         currentPageName.value = pageName
+        currentPageFlow.value = position
     }
 }

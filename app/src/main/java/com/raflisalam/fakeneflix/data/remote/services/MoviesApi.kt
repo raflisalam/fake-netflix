@@ -17,7 +17,6 @@ interface MoviesApi {
         @Query("page") position: Int
     ): Response<MoviesResponse>
 
-
     @GET("movie/upcoming?api_key=${Constant.API_KEY}")
     suspend fun getUpcomingMovies(
         @Query("page") position: Int

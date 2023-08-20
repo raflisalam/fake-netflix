@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
@@ -14,6 +15,7 @@ import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseC
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -82,27 +84,17 @@ class MoviesViewModel @Inject constructor(
     private val pageNameFlow = PositionPageFlow.getCurrentPageName()
     fun updateBackgroundLayout() {
         viewModelScope.launch {
-            var pageName = ""
-            Log.d("PAGENAME1", pageName)
-            pageNameFlow.collect { positionName ->
-                pageName = positionName
-
+            combine(pageNameFlow, positionFlow) { pageName, position ->
+                Pair(pageName, position)
+            }.collect { (pageName, position) ->
                 when (pageName) {
                     "NowPlaying" -> {
-                        positionFlow.collect {
-                            Log.d("pos_nowPlaying2", it.toString())
-                            val backgroundUrl = background_useCase.getBackgroundUrlNowPlaying(it)
-                            _backgroundUrl.value = backgroundUrl
-                        }
+                        val backgroundUrl = background_useCase.getBackgroundUrlNowPlaying(position)
+                        _backgroundUrl.value = backgroundUrl
                     }
                     "Upcoming" -> {
-                        positionFlow.collect {
-                            Log.d("pos_upcoming2", it.toString())
-                            val backgroundUrl = background_useCase.getBackgroundUrlUpcoming(it)
-                            _backgroundUrl.value = backgroundUrl
-                        }
-                    }
-                    else -> {
+                        val backgroundUrl = background_useCase.getBackgroundUrlUpcoming(position)
+                        _backgroundUrl.value = backgroundUrl
                     }
                 }
             }
