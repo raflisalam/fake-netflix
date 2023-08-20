@@ -2,6 +2,7 @@ package com.raflisalam.fakeneflix.presentation.ui.home.viewpager
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentUpcomingBinding
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPosterPagerAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
@@ -27,6 +30,8 @@ class UpcomingFragment : Fragment() {
     private val viewModel: MoviesViewModel by viewModels()
 
     private val autoSlideHandler = Handler()
+    private var isAutoSlideRunning = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,24 +81,53 @@ class UpcomingFragment : Fragment() {
                 page.scaleY = 0.85f + r * 0.15f
             }
             viewPager.setPageTransformer(pageTransformer)
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    PositionPageFlow.onPageSelected(position, "Upcoming")
+                    Log.d("pos_upcoming1", position.toString())
+                }
+            })
         }
         startAutoSlideUpcomingMovies()
     }
 
+    private val autoSlideRunnable = object : Runnable {
+        override fun run() {
+            if (isAutoSlideRunning) {
+                val currentItem = binding.viewPager.currentItem
+                val itemCount = binding.viewPager.adapter?.itemCount ?: 0
+
+                binding.viewPager.setCurrentItem((currentItem + 1) % itemCount, true)
+                autoSlideHandler.postDelayed(this, 2500)
+            }
+        }
+    }
+
     private fun startAutoSlideUpcomingMovies() {
+        isAutoSlideRunning = true
         autoSlideHandler.postDelayed(autoSlideRunnable, 2500)
     }
 
-    private val autoSlideRunnable = Runnable {
-        val currentItem = binding.viewPager.currentItem
-        val itemCount = binding.viewPager.adapter?.itemCount ?: 0
-
-        binding.viewPager.setCurrentItem((currentItem + 1) % itemCount, true)
-        startAutoSlideUpcomingMovies()
+    private fun stopAutoSlideUpcomingMovies() {
+        isAutoSlideRunning = false
+        autoSlideHandler.removeCallbacks(autoSlideRunnable)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         autoSlideHandler.removeCallbacks(autoSlideRunnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isAutoSlideRunning) {
+            startAutoSlideUpcomingMovies()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoSlideUpcomingMovies()
     }
 }

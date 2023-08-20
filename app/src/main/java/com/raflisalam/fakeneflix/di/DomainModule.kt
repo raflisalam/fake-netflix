@@ -1,6 +1,8 @@
 package com.raflisalam.fakeneflix.di
 
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
+import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
+import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
@@ -35,6 +37,13 @@ object DomainModule {
         repository: MoviesRepository
     ): GetUpcomingMoviesUseCase {
         return GetUpcomingMoviesUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideBackgroundLayoutUseCase(
+        repository: MoviesRepository
+    ): ChangeBackgroundLayoutUseCase {
+        return ChangeBackgroundLayoutUseCaseImpl(repository)
     }
 
 }

@@ -12,4 +12,6 @@ class GetNowPlayingMoviesUseCaseImpl @Inject constructor(
     override suspend fun invoke(page: Int): Flow<Status<List<Movies>>> {
         return repository.getNowPlayingMovies(page)
     }
+
+
 }

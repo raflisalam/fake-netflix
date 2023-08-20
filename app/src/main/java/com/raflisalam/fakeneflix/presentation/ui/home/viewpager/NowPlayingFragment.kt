@@ -7,20 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.raflisalam.fakeneflix.R
-import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentNowPlayingBinding
-import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPosterPagerAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,9 +29,7 @@ class NowPlayingFragment : Fragment() {
     private val viewModel: MoviesViewModel by viewModels()
 
     private val autoSlideHandler = Handler()
-
-    private lateinit var listImage: List<Movies>
-    private var backgroundUrl = ""
+    private var isAutoSlideRunning = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,9 +43,6 @@ class NowPlayingFragment : Fragment() {
             when (status) {
                 is Status.Success -> {
                     val movies = status.data
-                    if (movies != null) {
-                        listImage = movies
-                    }
                     adapter = MoviesPosterPagerAdapter(movies)
                     binding.viewPager.adapter = adapter
                 }
@@ -86,47 +75,52 @@ class NowPlayingFragment : Fragment() {
 
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    updateFragmentBackground(position)
+                    PositionPageFlow.onPageSelected(position, "NowPlaying")
+                    Log.d("pos_nowPlaying1", position.toString())
                 }
             })
         }
-        startAutoSlideUpcomingMovies()
+        startAutoSlideNowPlayingMovies()
     }
 
-    private fun updateFragmentBackground(position: Int) {
-        when (position) {
-            in listImage.indices -> {
+    private val autoSlideRunnable = object : Runnable {
+        override fun run() {
+            if (isAutoSlideRunning) {
                 val currentItem = binding.viewPager.currentItem
+                val itemCount = binding.viewPager.adapter?.itemCount ?: 0
 
-                if (currentItem < listImage.size) {
-                    val backgroundUrl = "${Constant.poster_base_url}${listImage[currentItem].background}"
-
-                    Glide.with(this)
-                        .load(backgroundUrl)
-                        .apply(RequestOptions())
-                        .into(binding.background)
-                }
+                binding.viewPager.setCurrentItem((currentItem + 1) % itemCount, true)
+                autoSlideHandler.postDelayed(this, 2500)
             }
         }
     }
 
-
-    private fun startAutoSlideUpcomingMovies() {
+    private fun startAutoSlideNowPlayingMovies() {
+        isAutoSlideRunning = true
         autoSlideHandler.postDelayed(autoSlideRunnable, 2500)
     }
 
-    private val autoSlideRunnable = Runnable {
-        val currentItem = binding.viewPager.currentItem
-        val itemCount = binding.viewPager.adapter?.itemCount ?: 0
-
-        binding.viewPager.setCurrentItem((currentItem + 1) % itemCount, true)
-        startAutoSlideUpcomingMovies()
+    private fun stopAutoSlideNowPlayingMovies() {
+        isAutoSlideRunning = false
+        autoSlideHandler.removeCallbacks(autoSlideRunnable)
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
         autoSlideHandler.removeCallbacks(autoSlideRunnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isAutoSlideRunning) {
+            startAutoSlideNowPlayingMovies()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoSlideNowPlayingMovies()
     }
 
 }

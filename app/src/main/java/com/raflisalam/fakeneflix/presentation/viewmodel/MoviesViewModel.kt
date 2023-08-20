@@ -1,15 +1,20 @@
 package com.raflisalam.fakeneflix.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -18,7 +23,8 @@ import javax.inject.Inject
 class MoviesViewModel @Inject constructor(
     private val popular_useCase: GetPopularMoviesUseCase,
     private val nowPlaying_useCase: GetNowPlayingMoviesUseCase,
-    private val upComing_useCase: GetUpcomingMoviesUseCase
+    private val upComing_useCase: GetUpcomingMoviesUseCase,
+    private val background_useCase: ChangeBackgroundLayoutUseCase
 ): ViewModel() {
 
     private val _getPopularMovies = MutableLiveData<Status<List<Movies>>>()
@@ -46,6 +52,7 @@ class MoviesViewModel @Inject constructor(
             try {
                 nowPlaying_useCase.invoke(page).collect {
                     _getNowPlayingMovies.value = it
+
                 }
             } catch (e: Exception) {
                 _getNowPlayingMovies.value = Status.Error("Failed to fetch now playing movie list")
@@ -65,6 +72,39 @@ class MoviesViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 _getUpcomingMovies.value = Status.Error("Failed to fetch now playing movie list")
+            }
+        }
+    }
+
+    private val _backgroundUrl = MutableLiveData<String>()
+    val getBackgroundUrl: LiveData<String> get() = _backgroundUrl
+    private val positionFlow = PositionPageFlow.getCurrentPageFlow()
+    private val pageNameFlow = PositionPageFlow.getCurrentPageName()
+    fun updateBackgroundLayout() {
+        viewModelScope.launch {
+            var pageName = ""
+            Log.d("PAGENAME1", pageName)
+            pageNameFlow.collect { positionName ->
+                pageName = positionName
+
+                when (pageName) {
+                    "NowPlaying" -> {
+                        positionFlow.collect {
+                            Log.d("pos_nowPlaying2", it.toString())
+                            val backgroundUrl = background_useCase.getBackgroundUrlNowPlaying(it)
+                            _backgroundUrl.value = backgroundUrl
+                        }
+                    }
+                    "Upcoming" -> {
+                        positionFlow.collect {
+                            Log.d("pos_upcoming2", it.toString())
+                            val backgroundUrl = background_useCase.getBackgroundUrlUpcoming(it)
+                            _backgroundUrl.value = backgroundUrl
+                        }
+                    }
+                    else -> {
+                    }
+                }
             }
         }
     }

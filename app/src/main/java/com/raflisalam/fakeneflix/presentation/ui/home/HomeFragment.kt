@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
-import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
@@ -19,7 +16,14 @@ import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import jp.wasabeef.blurry.Blurry
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -40,7 +44,6 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         setupTabLayoutAndViewPager()
-
         return root
     }
 
@@ -62,35 +65,14 @@ class HomeFragment : Fragment() {
                 }
             }.attach()
         }
-
-
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFetchMoviesPopular()
-    /*    initSetupViewPager()*/
+        setDynamicBackground()
     }
-
-
-/*    private fun initSetupViewPager() {
-        binding.apply {
-            viewPager.clipToPadding = false
-            viewPager.clipChildren = false
-            viewPager.offscreenPageLimit = 3
-            viewPager.currentItem = 1
-            viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-            val pageTransformer = CompositePageTransformer()
-            pageTransformer.addTransformer(MarginPageTransformer(20))
-            pageTransformer.addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85f + r * 0.15f
-            }
-            viewPager.setPageTransformer(pageTransformer)
-        }
-    }*/
 
     private fun initFetchMoviesPopular() {
         viewModel.fetchPopularMovies(2)
@@ -121,5 +103,23 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun setDynamicBackground() {
+        viewModel.updateBackgroundLayout()
+        viewModel.getBackgroundUrl.observe(viewLifecycleOwner) { backgroundUrl ->
+            GlobalScope.launch(Dispatchers.IO) {
+                val bitmap = Picasso.get().load(backgroundUrl).get()
+
+                launch(Dispatchers.Main) {
+                    Blurry.with(requireContext())
+                        .radius(20)
+                        .sampling(1)
+                        .from(bitmap)
+                        .into(binding.background)
+                }
+            }
+        }
     }
 }
