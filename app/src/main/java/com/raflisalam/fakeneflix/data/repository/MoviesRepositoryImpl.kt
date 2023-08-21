@@ -75,4 +75,24 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getTopRatedMovies(page: Int): Flow<Status<List<Movies>>> = flow {
+        try {
+            emit(Status.Loading())
+            val response = apiServices.getTopRatedMovies(page)
+            if (response.isSuccessful) {
+                val movieResponse = response.body()
+                val movieList = getResponseMovieToModel(movieResponse)
+                emit(Status.Success(movieList))
+            } else {
+                emit(Status.Error("API request failed with code ${response.code()}"))
+            }
+        } catch (e: HttpException) {
+            emit(Status.Error(e.localizedMessage ?: "An unexpected error occured"))
+        } catch (e: IOException) {
+            emit(Status.Error("Couldn't reach server. Check your internet connection"))
+        }  catch (e: Exception) {
+            emit(Status.Error("An unexpected error occurred"))
+        }
+    }
+
 }

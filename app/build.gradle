@@ -76,8 +76,11 @@ dependencies {
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    implementation 'com.squareup.picasso:picasso:2.71828' // Contoh library untuk menampilkan gambar
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'jp.wasabeef:blurry:4.0.1'
+
+    implementation 'com.github.lzyzsd:circleprogress:1.2.1'
+
 
 
 

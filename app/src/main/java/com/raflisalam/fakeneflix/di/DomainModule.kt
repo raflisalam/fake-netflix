@@ -7,6 +7,8 @@ import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMovi
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCaseImpl
 import dagger.Module
@@ -37,6 +39,13 @@ object DomainModule {
         repository: MoviesRepository
     ): GetUpcomingMoviesUseCase {
         return GetUpcomingMoviesUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetMoviesTopRatedUseCase(
+        repository: MoviesRepository
+    ): GetTopRatedMoviesUseCase {
+        return GetTopRatedMoviesUseCaseImpl(repository)
     }
 
     @Provides

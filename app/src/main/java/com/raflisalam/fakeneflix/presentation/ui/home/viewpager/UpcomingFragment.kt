@@ -39,14 +39,6 @@ class UpcomingFragment : Fragment() {
     ): View {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val images = listOf(
-            R.drawable.image,
-            R.drawable.poster_path4,
-            R.drawable.poster_path5,
-            R.drawable.poster_path6,
-        )
-
         viewModel.fetchUpcomingMovies(1)
         viewModel.getUpcomingMovies.observe(viewLifecycleOwner) { status ->
             when (status) {
@@ -55,7 +47,6 @@ class UpcomingFragment : Fragment() {
                     adapter = MoviesPosterPagerAdapter(movies)
                     binding.viewPager.adapter = adapter
                 }
-
                 else -> {}
             }
         }
@@ -84,7 +75,6 @@ class UpcomingFragment : Fragment() {
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     PositionPageFlow.onPageSelected("Upcoming", position)
-                    Log.d("pos_upcoming1", position.toString())
                 }
             })
         }

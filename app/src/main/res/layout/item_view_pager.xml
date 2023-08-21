@@ -9,7 +9,6 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="185dp"
         android:layout_height="280dp"
-        android:src="@drawable/poster_path4"
         android:id="@+id/image_poster"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"

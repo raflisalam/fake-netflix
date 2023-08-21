@@ -11,4 +11,6 @@ interface MoviesRepository {
     suspend fun getNowPlayingMovies(page: Int): Flow<Status<List<Movies>>>
 
     suspend fun getUpcomingMovies(page: Int): Flow<Status<List<Movies>>>
+
+    suspend fun getTopRatedMovies(page: Int): Flow<Status<List<Movies>>>
 }

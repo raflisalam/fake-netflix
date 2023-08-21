@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.data.remote.services
 
+import android.graphics.Movie
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.data.remote.model.MoviesResponse
 import retrofit2.Response
@@ -19,6 +20,11 @@ interface MoviesApi {
 
     @GET("movie/upcoming?api_key=${Constant.API_KEY}")
     suspend fun getUpcomingMovies(
+        @Query("page") position: Int
+    ): Response<MoviesResponse>
+
+    @GET("movie/top_rated?api_key=${Constant.API_KEY}")
+    suspend fun getTopRatedMovies(
         @Query("page") position: Int
     ): Response<MoviesResponse>
 }

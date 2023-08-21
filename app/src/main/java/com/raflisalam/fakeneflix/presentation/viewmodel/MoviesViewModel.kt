@@ -12,6 +12,7 @@ import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -26,6 +27,7 @@ class MoviesViewModel @Inject constructor(
     private val popular_useCase: GetPopularMoviesUseCase,
     private val nowPlaying_useCase: GetNowPlayingMoviesUseCase,
     private val upComing_useCase: GetUpcomingMoviesUseCase,
+    private val topRated_useCase: GetTopRatedMoviesUseCase,
     private val background_useCase: ChangeBackgroundLayoutUseCase
 ): ViewModel() {
 
@@ -74,6 +76,22 @@ class MoviesViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 _getUpcomingMovies.value = Status.Error("Failed to fetch now playing movie list")
+            }
+        }
+    }
+
+    private val _getTopRatedMovies = MutableLiveData<Status<List<Movies>>>()
+    val getTopRatedMovies: LiveData<Status<List<Movies>>> get() = _getTopRatedMovies
+
+    fun fetchTopRatedMovies(page: Int) {
+        viewModelScope.launch {
+            _getTopRatedMovies.value = Status.Loading()
+            try {
+                topRated_useCase.invoke(page).collect {
+                    _getTopRatedMovies.value = it
+                }
+            } catch (e: Exception) {
+                _getTopRatedMovies.value = Status.Error("Failed to fetch now playing movie list")
             }
         }
     }

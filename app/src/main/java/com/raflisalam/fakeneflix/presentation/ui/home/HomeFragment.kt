@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPopularAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
@@ -32,7 +34,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var adapter: MoviesPopularAdapter
+    private lateinit var popularAdapter: MoviesPopularAdapter
+    private lateinit var topRatedAdapter: MoviesTopRatedAdapter
 
 
     override fun onCreateView(
@@ -71,7 +74,34 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFetchMoviesPopular()
+        initFetchMoviesTopRated()
         setDynamicBackground()
+    }
+
+    private fun initFetchMoviesTopRated() {
+        viewModel.fetchTopRatedMovies(1)
+        viewModel.getTopRatedMovies.observe(viewLifecycleOwner) {
+            when (it) {
+                is Status.Error -> {
+
+                }
+                is Status.Loading -> {
+
+                }
+                is Status.Success -> {
+                    val data = it.data ?: emptyList()
+                    initRecycleViewTopRatedMovies(data)
+                }
+            }
+        }
+    }
+
+    private fun initRecycleViewTopRatedMovies(data: List<Movies>) {
+        topRatedAdapter = MoviesTopRatedAdapter(data)
+        binding.apply {
+            rvTopRated.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvTopRated.adapter = MoviesTopRatedAdapter(data)
+        }
     }
 
     private fun initFetchMoviesPopular() {
@@ -86,14 +116,14 @@ class HomeFragment : Fragment() {
                 }
                 is Status.Success -> {
                     val data = it.data ?: emptyList()
-                    initRecycleView(data)
+                    initRecycleViewPopularMovies(data)
                 }
             }
         }
     }
 
-    private fun initRecycleView(data: List<Movies>) {
-        adapter = MoviesPopularAdapter(data)
+    private fun initRecycleViewPopularMovies(data: List<Movies>) {
+        popularAdapter = MoviesPopularAdapter(data)
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = MoviesPopularAdapter(data)

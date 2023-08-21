@@ -5,24 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="10dp"
     android:layout_marginStart="15dp">
-    
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardView_poster"
-        android:layout_width="160dp"
-        android:layout_height="240dp"
-        app:strokeColor="#000"
-        app:cardCornerRadius="10dp"
-        android:elevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/image_poster"
-            android:scaleType="centerCrop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/image"/>
-    </com.google.android.material.card.MaterialCardView>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_poster"
+        android:layout_width="160dp"
+        android:layout_height="230dp"
+        app:riv_corner_radius="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/poster_path4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/title"
@@ -30,11 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:textColor="@color/white"
-        android:text="Transformers: Rise of the Beasts"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_poster"
-        app:layout_constraintStart_toStartOf="@id/cardView_poster"
-        app:layout_constraintEnd_toEndOf="@id/cardView_poster"/>
+        app:layout_constraintTop_toBottomOf="@+id/image_poster"
+        app:layout_constraintStart_toStartOf="@id/image_poster"
+        app:layout_constraintEnd_toEndOf="@id/image_poster"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
