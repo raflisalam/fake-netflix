@@ -2,6 +2,7 @@ package com.raflisalam.fakeneflix.data.repository
 
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseMovieToModel
+import com.raflisalam.fakeneflix.data.remote.model.MovieDetailsDto
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
 import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
@@ -93,6 +94,10 @@ class MoviesRepositoryImpl @Inject constructor(
         }  catch (e: Exception) {
             emit(Status.Error("An unexpected error occurred"))
         }
+    }
+
+    override suspend fun getDetailsMovieById(movieId: Int): MovieDetailsDto {
+        return apiServices.getDetailsMovieById(movieId)
     }
 
 }

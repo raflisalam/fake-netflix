@@ -12,7 +12,7 @@ object PositionPageFlow {
     fun getCurrentPageName(): Flow<String> = currentPageName
     fun getCurrentPageFlow(): Flow<Int> = currentPageFlow
 
-    fun onPageSelected(pageName: String, position: Int, ) {
+    fun onPageSelected(pageName: String, position: Int) {
         currentPageName.value = pageName
         currentPageFlow.value = position
     }

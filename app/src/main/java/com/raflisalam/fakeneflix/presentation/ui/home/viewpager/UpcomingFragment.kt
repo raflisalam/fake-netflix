@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.home.viewpager
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -14,14 +15,17 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
+import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentUpcomingBinding
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPosterPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class UpcomingFragment : Fragment() {
+class UpcomingFragment : Fragment(), OnItemMoviesClickListener {
 
     private var _binding: FragmentUpcomingBinding? = null
     private val binding get() = _binding!!
@@ -44,7 +48,7 @@ class UpcomingFragment : Fragment() {
             when (status) {
                 is Status.Success -> {
                     val movies = status.data
-                    adapter = MoviesPosterPagerAdapter(movies)
+                    adapter = MoviesPosterPagerAdapter(movies, this)
                     binding.viewPager.adapter = adapter
                 }
                 else -> {}
@@ -119,5 +123,14 @@ class UpcomingFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         stopAutoSlideUpcomingMovies()
+    }
+
+    override fun onItemMoviesClick(moviesId: Int) {
+        MoviesIdStateFlow.onMoviesSelected(moviesId)
+        showMovieDetails()
+    }
+
+    private fun showMovieDetails() {
+        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
     }
 }

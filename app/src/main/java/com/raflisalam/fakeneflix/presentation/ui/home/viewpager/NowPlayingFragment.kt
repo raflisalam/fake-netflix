@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.home.viewpager
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -13,14 +14,17 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
+import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentNowPlayingBinding
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPosterPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NowPlayingFragment : Fragment() {
+class NowPlayingFragment : Fragment(), OnItemMoviesClickListener {
 
     private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +47,7 @@ class NowPlayingFragment : Fragment() {
             when (status) {
                 is Status.Success -> {
                     val movies = status.data
-                    adapter = MoviesPosterPagerAdapter(movies)
+                    adapter = MoviesPosterPagerAdapter(movies, this)
                     binding.viewPager.adapter = adapter
                 }
                 else -> {}
@@ -120,6 +124,15 @@ class NowPlayingFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         stopAutoSlideNowPlayingMovies()
+    }
+
+    override fun onItemMoviesClick(moviesId: Int) {
+        MoviesIdStateFlow.onMoviesSelected(moviesId)
+        showMovieDetails()
+    }
+
+    private fun showMovieDetails() {
+        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
     }
 
 }

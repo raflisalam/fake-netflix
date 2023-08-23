@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
+import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesPopularAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
+import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +33,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnItemMoviesClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -97,10 +102,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycleViewTopRatedMovies(data: List<Movies>) {
-        topRatedAdapter = MoviesTopRatedAdapter(data)
+        topRatedAdapter = MoviesTopRatedAdapter(data, this)
         binding.apply {
             rvTopRated.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvTopRated.adapter = MoviesTopRatedAdapter(data)
+            rvTopRated.adapter = topRatedAdapter
         }
     }
 
@@ -123,10 +128,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycleViewPopularMovies(data: List<Movies>) {
-        popularAdapter = MoviesPopularAdapter(data)
+        popularAdapter = MoviesPopularAdapter(data, this)
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView.adapter = MoviesPopularAdapter(data)
+            recyclerView.adapter = popularAdapter
         }
     }
 
@@ -151,5 +156,14 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onItemMoviesClick(moviesId: Int) {
+        MoviesIdStateFlow.onMoviesSelected(moviesId)
+        showMovieDetails()
+    }
+
+    private fun showMovieDetails() {
+        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
     }
 }

@@ -2,9 +2,11 @@ package com.raflisalam.fakeneflix.data.remote.services
 
 import android.graphics.Movie
 import com.raflisalam.fakeneflix.common.Constant
+import com.raflisalam.fakeneflix.data.remote.model.MovieDetailsDto
 import com.raflisalam.fakeneflix.data.remote.model.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MoviesApi {
@@ -27,4 +29,9 @@ interface MoviesApi {
     suspend fun getTopRatedMovies(
         @Query("page") position: Int
     ): Response<MoviesResponse>
+
+    @GET("movie/{movie_id}?api_key=${Constant.API_KEY}&append_to_response=videos")
+    suspend fun getDetailsMovieById(
+        @Path("movie_id") movieId: Int
+    ): MovieDetailsDto
 }

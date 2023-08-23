@@ -1,15 +1,20 @@
 package com.raflisalam.fakeneflix.presentation.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
+import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.ItemMoviesTopRatedBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
 
-class MoviesTopRatedAdapter(private var listMoviesTopRated: List<Movies>): RecyclerView.Adapter<MoviesTopRatedAdapter.ViewHolder>() {
+class MoviesTopRatedAdapter(
+    private var listMoviesTopRated: List<Movies>,
+    private val onItemMoviesClickListener: OnItemMoviesClickListener
+): RecyclerView.Adapter<MoviesTopRatedAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemMoviesTopRatedBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {
@@ -39,5 +44,9 @@ class MoviesTopRatedAdapter(private var listMoviesTopRated: List<Movies>): Recyc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie = listMoviesTopRated[position]
         holder.bind(movie)
+        holder.itemView.setOnClickListener {
+            onItemMoviesClickListener.onItemMoviesClick(movie.id)
+        }
     }
+
 }
