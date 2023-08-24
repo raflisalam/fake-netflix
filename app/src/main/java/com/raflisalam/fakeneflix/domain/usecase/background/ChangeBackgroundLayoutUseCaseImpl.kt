@@ -13,7 +13,7 @@ class ChangeBackgroundLayoutUseCaseImpl @Inject constructor(
         var backgroundUrl = ""
         listMovies.collect {
             if (it.data?.indices?.contains(position) == true) {
-                backgroundUrl = "${Constant.poster_base_url}${it.data[position].poster}"
+                backgroundUrl = "${Constant.path_image_base_url}${it.data[position].poster}"
             }
         }
         return backgroundUrl
@@ -24,7 +24,7 @@ class ChangeBackgroundLayoutUseCaseImpl @Inject constructor(
         var backgroundUrl = ""
         listMovies.collect {
             if (it.data?.indices?.contains(position) == true) {
-                backgroundUrl = "${Constant.poster_base_url}${it.data[position].poster}"
+                backgroundUrl = "${Constant.path_image_base_url}${it.data[position].poster}"
             }
         }
         return backgroundUrl

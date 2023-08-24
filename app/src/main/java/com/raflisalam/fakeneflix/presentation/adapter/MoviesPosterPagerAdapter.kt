@@ -17,7 +17,7 @@ class MoviesPosterPagerAdapter(
 
     class ViewHolder(private val binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movies) {
-            val posterUrl = "${Constant.poster_base_url}${movie.poster}"
+            val posterUrl = "${Constant.path_image_base_url}${movie.poster}"
             Glide.with(itemView.context)
                 .load(posterUrl)
                 .apply(RequestOptions())

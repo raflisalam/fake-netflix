@@ -22,6 +22,7 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "MOVIE_API_KEY", "${movie_api_key}"
+            buildConfigField "String", "AUTH_KEY", "${authorization_key}"
         }
         release {
             minifyEnabled false
@@ -56,6 +57,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
 
     //hilt
     implementation "com.google.dagger:hilt-android:2.44"
@@ -81,7 +84,6 @@ dependencies {
 
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
-
-
-
+    implementation 'androidx.media3:media3-exoplayer:1.1.1'
+    implementation 'androidx.media3:media3-ui:1.1.1'
 }

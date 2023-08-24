@@ -3,10 +3,13 @@ package com.raflisalam.fakeneflix.presentation.ui.details
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.Chip
@@ -18,6 +21,7 @@ import com.raflisalam.fakeneflix.common.utils.TimeUtils
 import com.raflisalam.fakeneflix.data.remote.model.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
 import com.raflisalam.fakeneflix.domain.model.MovieDetails
+import com.raflisalam.fakeneflix.presentation.adapter.MoviesActorAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailsMoviesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsMoviesBinding
+    private lateinit var adapter: MoviesActorAdapter
     private val viewModel: DetailsMoviesViewModel by viewModels()
+
+    private lateinit var player: ExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +50,37 @@ class DetailsMoviesActivity : AppCompatActivity() {
             }
 
             btnWatchTrailer.setOnClickListener {
-                Toast.makeText(this@DetailsMoviesActivity, "TERTEKAN", Toast.LENGTH_LONG).show()
+                binding.imagePoster.visibility = View.INVISIBLE
+                binding.btnWatchTrailer.visibility = View.INVISIBLE
+                watchTrailerMovies()
             }
         }
     }
+
+    private fun watchTrailerMovies() {
+        binding.videoTrailer.visibility = View.VISIBLE
+        viewModel.movieDetails.observe(this) { status ->
+            when (status) {
+                is Status.Success -> {
+                    val movies = status.data?.videos?.results
+                    val trailerVideo = movies?.find { it.type == "Trailer" && it.official } ?: movies?.find { it.type == "Trailer" && !it.official }
+
+                    if (trailerVideo != null) {
+                        val videoUrl = "${Constant.video_base_url}${trailerVideo.key}"
+                        binding.apply {
+                            videoTrailer.settings.javaScriptEnabled = true
+                            videoTrailer.webViewClient = WebViewClient()
+                            videoTrailer.webChromeClient = WebChromeClient()
+                            videoTrailer.loadUrl(videoUrl)
+                        }
+                    }
+                }
+                else -> {}
+            }
+        }
+
+    }
+
 
     private fun initFetchMoviesDetails() {
         viewModel.fetchMovieDetails()
@@ -65,6 +99,8 @@ class DetailsMoviesActivity : AppCompatActivity() {
                         btnWatchTrailer.visibility = View.VISIBLE
                         iconRating.visibility = View.VISIBLE
                         iconTime.visibility = View.VISIBLE
+                        rvActor.visibility = View.VISIBLE
+                        textHeadActors.visibility = View.VISIBLE
                     }
                 }
                 is Status.Error -> {
@@ -79,7 +115,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
         if (data != null) {
             binding.apply {
                 Glide.with(this@DetailsMoviesActivity)
-                    .load("${Constant.poster_base_url}${data.backdrop_poster}")
+                    .load("${Constant.path_image_base_url}${data.backdrop_poster}")
                     .apply(RequestOptions())
                     .into(imagePoster)
                 titleMovies.text = data.title
@@ -88,9 +124,35 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 timeMovies.text = TimeUtils.formatRuntimeToHoursMinutes(data.runtime)
                 synopsisMovies.text = data.synopsis
                 setGenreMoviesInChipGroup(data.genres)
+                fetchActorMovies()
             }
         }
 
+    }
+
+    private fun fetchActorMovies() {
+        viewModel.fetchCreditsActorMovies()
+        viewModel.getCreditsActorMovie.observe(this) {
+            when (it) {
+                is Status.Success -> {
+                    val data = it.data
+                    if (data != null) {
+                        adapter = MoviesActorAdapter(data)
+                        initRecylerViewActor()
+                    }
+                }
+                is Status.Error -> {
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun initRecylerViewActor() {
+        binding.apply {
+            rvActor.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvActor.adapter = adapter
+        }
     }
 
     private fun setGenreMoviesInChipGroup(genres: List<Genre>?) {
@@ -100,7 +162,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 chip.text = genre.name
                 chip.textColors
                 chip.isCheckedIconVisible = false
-                chip.textSize = 12f // Ukuran teks dalam sp
+                chip.textSize = 12f
                 chip.setChipBackgroundColorResource(R.color.chip_background)
                 chip.setTextColor(resources.getColor(R.color.chip_text, null))
                 chip.layoutParams = ChipGroup.LayoutParams(
@@ -111,4 +173,13 @@ class DetailsMoviesActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if (binding.videoTrailer.canGoBack()) {
+            binding.videoTrailer.goBack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

@@ -3,6 +3,8 @@ package com.raflisalam.fakeneflix.di
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
@@ -46,6 +48,13 @@ object DomainModule {
         repository: MoviesRepository
     ): GetTopRatedMoviesUseCase {
         return GetTopRatedMoviesUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetCreditsMovies(
+        repository: MoviesRepository
+    ): GetCreditsMovieUseCase {
+        return GetCreditsMovieUseCaseImpl(repository)
     }
 
     @Provides

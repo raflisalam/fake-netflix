@@ -1,9 +1,11 @@
 package com.raflisalam.fakeneflix.data.repository
 
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.getResponseCreditsCastToModel
 import com.raflisalam.fakeneflix.common.getResponseMovieToModel
 import com.raflisalam.fakeneflix.data.remote.model.MovieDetailsDto
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
+import com.raflisalam.fakeneflix.domain.model.Actor
 import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.Flow
@@ -100,4 +102,23 @@ class MoviesRepositoryImpl @Inject constructor(
         return apiServices.getDetailsMovieById(movieId)
     }
 
+    override suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<Actor>>> = flow {
+        try {
+            emit(Status.Loading())
+            val response = apiServices.getCreditsMovieById(movieId)
+            if (response.isSuccessful) {
+                val credits = response.body()
+                val listActor = getResponseCreditsCastToModel(credits)
+                emit(Status.Success(listActor))
+            } else {
+                emit(Status.Error("API request failed with code ${response.code()}"))
+            }
+        } catch (e: HttpException) {
+            emit(Status.Error(e.localizedMessage))
+        } catch (e: IOException) {
+            emit(Status.Error("Couldn't reach server. Check your internet connection"))
+        }  catch (e: Exception) {
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
+        }
+    }
 }

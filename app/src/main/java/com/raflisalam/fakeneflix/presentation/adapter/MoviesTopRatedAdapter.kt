@@ -1,6 +1,5 @@
 package com.raflisalam.fakeneflix.presentation.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,7 @@ class MoviesTopRatedAdapter(
     class ViewHolder(private val binding: ItemMoviesTopRatedBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {
             binding.apply {
-                val posterUrl = "${Constant.poster_base_url}${item.poster}"
+                val posterUrl = "${Constant.path_image_base_url}${item.poster}"
                 Glide.with(itemView.context)
                     .load(posterUrl)
                     .apply(RequestOptions())

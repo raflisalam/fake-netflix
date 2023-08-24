@@ -18,7 +18,7 @@ class MoviesPopularAdapter(
     class ViewHolder(val binding: ItemMoviesPopularBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {
             binding.apply {
-                val posterUrl = "${Constant.poster_base_url}${item.poster}"
+                val posterUrl = "${Constant.path_image_base_url}${item.poster}"
                 Glide.with(itemView.context)
                     .load(posterUrl)
                     .apply(RequestOptions())

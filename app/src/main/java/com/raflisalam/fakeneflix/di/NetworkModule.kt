@@ -4,10 +4,12 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,9 +33,28 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideAuthInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val originalRequest = chain.request()
+            val authToken = Constant.AUTH_KEY
+            val authorizedRequest = originalRequest.newBuilder()
+                .header("Authorization", "Bearer $authToken")
+                .build()
+
+            val response = chain.proceed(authorizedRequest)
+            response
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor,
+        authInterceptor: Interceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
     }
 
