@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/card_item_background"
+    app:strokeColor="@color/color_stroke_cardView_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_poster"
+            android:layout_width="105dp"
+            android:layout_height="150dp"
+            android:src="@drawable/poster_path4"
+            app:riv_corner_radius="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/title_movies"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="Transformer: Rise of the Beast"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/image_poster"
+            app:layout_constraintTop_toTopOf="@id/image_poster"/>
+
+        <View
+            android:id="@+id/icon_rating"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_rating"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/title_movies"
+            app:layout_constraintStart_toStartOf="@id/title_movies"/>
+
+        <TextView
+            android:id="@+id/rating_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/icon_rating"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <View
+            android:id="@+id/icon_time"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_time"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/rating_movies"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <TextView
+            android:id="@+id/time_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text=""
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/icon_time"
+            app:layout_constraintStart_toEndOf="@id/icon_time"
+            app:layout_constraintBottom_toBottomOf="@id/icon_time"/>
+
+        <TextView
+            android:id="@+id/synopsis_movies"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@+id/icon_rating"
+            app:layout_constraintTop_toBottomOf="@+id/icon_rating" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

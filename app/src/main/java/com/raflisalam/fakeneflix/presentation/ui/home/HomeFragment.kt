@@ -8,20 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesPopularAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
-import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +37,7 @@ class HomeFragment : Fragment(), OnItemMoviesClickListener {
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var popularAdapter: MoviesPopularAdapter
+    private lateinit var popularAdapter: MoviesAdapter
     private lateinit var topRatedAdapter: MoviesTopRatedAdapter
 
 
@@ -128,7 +126,7 @@ class HomeFragment : Fragment(), OnItemMoviesClickListener {
     }
 
     private fun initRecycleViewPopularMovies(data: List<Movies>) {
-        popularAdapter = MoviesPopularAdapter(data, this)
+        popularAdapter = MoviesAdapter(data, this)
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = popularAdapter

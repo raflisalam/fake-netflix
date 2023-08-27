@@ -114,7 +114,27 @@ class MoviesRepositoryImpl @Inject constructor(
                 emit(Status.Error("API request failed with code ${response.code()}"))
             }
         } catch (e: HttpException) {
-            emit(Status.Error(e.localizedMessage))
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
+        } catch (e: IOException) {
+            emit(Status.Error("Couldn't reach server. Check your internet connection"))
+        }  catch (e: Exception) {
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
+        }
+    }
+
+    override suspend fun getMoviesByName(moviesName: String): Flow<Status<List<Movies>>> = flow {
+        try {
+            emit(Status.Loading())
+            val response = apiServices.getMoviesByName(moviesName)
+            if (response.isSuccessful) {
+                val movies = response.body()
+                val listMovies = getResponseMovieToModel(movies)
+                emit(Status.Success(listMovies))
+            } else {
+                emit(Status.Error("API request failed with code ${response.code()}"))
+            }
+        } catch (e: HttpException) {
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
         } catch (e: IOException) {
             emit(Status.Error("Couldn't reach server. Check your internet connection"))
         }  catch (e: Exception) {

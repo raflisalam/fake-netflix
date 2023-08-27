@@ -9,11 +9,17 @@ import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.ItemMoviesPopularBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
+import okhttp3.internal.notify
 
-class MoviesPopularAdapter(
+class MoviesAdapter(
     private var listMoviesPopular: List<Movies>,
     private val onItemMoviesClickListener: OnItemMoviesClickListener
-) : RecyclerView.Adapter<MoviesPopularAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+
+    fun updateDataMovies(newData: List<Movies>) {
+        listMoviesPopular = newData
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(val binding: ItemMoviesPopularBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {

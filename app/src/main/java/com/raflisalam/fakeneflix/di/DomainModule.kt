@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.di
 
+import android.graphics.Movie
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
@@ -13,6 +14,8 @@ import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUs
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,6 +65,13 @@ object DomainModule {
         repository: MoviesRepository
     ): ChangeBackgroundLayoutUseCase {
         return ChangeBackgroundLayoutUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideSearchMoviesUseCase(
+        repository: MoviesRepository
+    ): SearchMoviesUseCase {
+        return SearchMoviesUseCaseImpl(repository)
     }
 
 }

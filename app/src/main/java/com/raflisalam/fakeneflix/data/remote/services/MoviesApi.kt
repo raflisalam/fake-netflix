@@ -41,4 +41,10 @@ interface MoviesApi {
     suspend fun getCreditsMovieById(
         @Path("movie_id") moviesId: Int
     ): Response<MovieCredits>
+
+    @GET("search/movie")
+    suspend fun getMoviesByName(
+        @Query("query") moviesName: String
+    ): Response<MoviesResponse>
+
 }

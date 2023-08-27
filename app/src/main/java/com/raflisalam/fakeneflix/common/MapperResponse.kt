@@ -29,9 +29,9 @@ fun getResponseCreditsCastToModel(response: MovieCredits?): List<Actor> {
 
     response?.cast?.forEach { data ->
         val actor = Actor(
-            name = data.name ?: "Rafli",
+            name = data.name ?: "",
             profilePics = data.profile_path ?: "",
-            nameCharacter = data.character ?: "Toreto"
+            nameCharacter = data.character ?: ""
         )
         actorList.add(actor)
     }

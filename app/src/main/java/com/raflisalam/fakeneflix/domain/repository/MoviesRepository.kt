@@ -21,4 +21,6 @@ interface MoviesRepository {
     suspend fun getDetailsMovieById(movieId: Int): MovieDetailsDto
 
     suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<Actor>>>
+
+    suspend fun getMoviesByName(moviesName: String): Flow<Status<List<Movies>>>
 }
