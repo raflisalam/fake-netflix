@@ -1,11 +1,11 @@
 package com.raflisalam.fakeneflix.presentation.ui.search
 
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +16,7 @@ import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentSearchBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.SearchResultAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,8 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var adapter: MoviesAdapter
+    private lateinit var searchAdapter: SearchResultAdapter
+    private lateinit var trendingMoviesAdapter: MoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,12 +38,14 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        searchMovies()
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        searchMovies()
+        fetchTrendingMovies()
     }
 
     private fun searchMovies() {
@@ -49,20 +53,46 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
             searchView.setOnClickListener { searchView.isIconified = false }
             searchView.setOnQueryTextListener(object : OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    if (query?.isNotEmpty() == true) {
-                        fetchSearchResult(query)
-                    }
                     searchView.setQuery("", false)
                     searchView.clearFocus()
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-
-                    return false
+                    if (newText?.isEmpty() == true) {
+                        binding.textHeadTrending.visibility = View.VISIBLE
+                        fetchTrendingMovies()
+                    } else {
+                        binding.textHeadTrending.visibility = View.GONE
+                        if (newText != null) {
+                            fetchSearchResult(newText)
+                        }
+                    }
+                    return true
                 }
-
             })
+        }
+    }
+
+    private fun fetchTrendingMovies() {
+        viewModel.fetchTrendingMovies()
+        viewModel.getTrendingMovies.observe(viewLifecycleOwner) {
+            when (it) {
+                is Status.Success -> {
+
+                    val data = it.data ?: emptyList()
+                    showTrendingMovies(data)
+                }
+                else -> {}
+            }
+        }
+    }
+
+    private fun showTrendingMovies(data: List<Movies>) {
+        trendingMoviesAdapter = MoviesAdapter(data, this)
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.adapter = trendingMoviesAdapter
         }
     }
 
@@ -80,10 +110,11 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
     }
 
     private fun showSearchResult(data: List<Movies>) {
-        adapter = MoviesAdapter(data, this)
+        searchAdapter = SearchResultAdapter(data, this)
+        searchAdapter.updateData(data)
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            recyclerView.adapter = adapter
+            recyclerView.adapter = searchAdapter
         }
     }
 

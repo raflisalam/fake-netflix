@@ -47,4 +47,9 @@ interface MoviesApi {
         @Query("query") moviesName: String
     ): Response<MoviesResponse>
 
+    @GET("trending/movie/{time_window}")
+    suspend fun getTrendingMovies(
+        @Path("time_window") timePeriod: String
+    ): Response<MoviesResponse>
+
 }

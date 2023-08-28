@@ -13,4 +13,11 @@
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
+
+    <style name="CustomSearchViewTheme" parent="Theme.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">#918F8F</item>
+    </style>
 </resources>

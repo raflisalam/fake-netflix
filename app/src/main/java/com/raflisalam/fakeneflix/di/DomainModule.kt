@@ -12,6 +12,8 @@ import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseC
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_trending.GetTrendingMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_trending.GetTrendingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
@@ -51,6 +53,13 @@ object DomainModule {
         repository: MoviesRepository
     ): GetTopRatedMoviesUseCase {
         return GetTopRatedMoviesUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetTrendingMoviesUseCase(
+        repository: MoviesRepository
+    ): GetTrendingMoviesUseCase {
+        return GetTrendingMoviesUseCaseImpl(repository)
     }
 
     @Provides

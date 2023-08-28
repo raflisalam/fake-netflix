@@ -13,6 +13,7 @@ import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayou
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_trending.GetTrendingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +31,8 @@ class MoviesViewModel @Inject constructor(
     private val upComing_useCase: GetUpcomingMoviesUseCase,
     private val topRated_useCase: GetTopRatedMoviesUseCase,
     private val background_useCase: ChangeBackgroundLayoutUseCase,
-    private val searchMovies_useCase: SearchMoviesUseCase
+    private val searchMovies_useCase: SearchMoviesUseCase,
+    private val trendingMovies_useCase: GetTrendingMoviesUseCase
 ): ViewModel() {
 
     private val _getPopularMovies = MutableLiveData<Status<List<Movies>>>()
@@ -62,6 +64,21 @@ class MoviesViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 _getNowPlayingMovies.value = Status.Error("Failed to fetch now playing movie list")
+            }
+        }
+    }
+
+    private val _getTrendingMovies = MutableLiveData<Status<List<Movies>>>()
+    val getTrendingMovies: LiveData<Status<List<Movies>>> get() = _getTrendingMovies
+    fun fetchTrendingMovies() {
+        viewModelScope.launch {
+            _getTrendingMovies.value = Status.Loading()
+            try {
+                trendingMovies_useCase.invoke("day").collect {
+                    _getTrendingMovies.value = it
+                }
+            } catch (e: Exception) {
+                _getTrendingMovies.value = Status.Error("Failed to fetch now playing movie list")
             }
         }
     }

@@ -7,16 +7,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
-import com.raflisalam.fakeneflix.databinding.ItemMoviesPopularBinding
+import com.raflisalam.fakeneflix.databinding.ItemSearchResultBinding
 import com.raflisalam.fakeneflix.domain.model.Movies
-import okhttp3.internal.notify
 
-class MoviesAdapter(
-    private var listMoviesPopular: List<Movies>,
+class SearchResultAdapter(
+    private var listMovies: List<Movies>,
     private val onItemMoviesClickListener: OnItemMoviesClickListener
-) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+): RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: ItemMoviesPopularBinding): RecyclerView.ViewHolder(binding.root) {
+    fun updateData(newData: List<Movies>) {
+        this.listMovies = newData
+        notifyDataSetChanged()
+    }
+
+    class ViewHolder(private val binding: ItemSearchResultBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {
             binding.apply {
                 val posterUrl = "${Constant.path_image_base_url}${item.poster}"
@@ -24,26 +28,29 @@ class MoviesAdapter(
                     .load(posterUrl)
                     .apply(RequestOptions())
                     .into(imagePoster)
-                title.text = item.title
+                titleMovies.text = item.title
+                ratingMovies.text = item.rating.toString()
+                releaseDate.text = item.release_date
+                synopsisMovies.text = item.description
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMoviesPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return listMoviesPopular.size
+        return listMovies.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = listMoviesPopular[position]
+        val item = listMovies[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
             onItemMoviesClickListener.onItemMoviesClick(item.id)
         }
     }
-
 }
