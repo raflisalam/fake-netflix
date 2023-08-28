@@ -8,7 +8,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.media3.exoplayer.ExoPlayer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -17,13 +17,18 @@ import com.google.android.material.chip.ChipGroup
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
+import com.raflisalam.fakeneflix.data.local.entity.FavoriteMovieEntity
 import com.raflisalam.fakeneflix.data.remote.model.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
 import com.raflisalam.fakeneflix.domain.model.MovieDetails
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesActorAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
+import com.raflisalam.fakeneflix.presentation.viewmodel.FavoriteMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailsMoviesActivity : AppCompatActivity() {
@@ -31,8 +36,10 @@ class DetailsMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsMoviesBinding
     private lateinit var adapter: MoviesActorAdapter
     private val viewModel: DetailsMoviesViewModel by viewModels()
+    private val favoriteViewModel: FavoriteMoviesViewModel by viewModels()
 
-    private lateinit var player: ExoPlayer
+    private val moviesIdStateFlow = MoviesIdStateFlow.getCurrentIdMovies()
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
         initFetchMoviesDetails()
         setupButton()
     }
+
 
     private fun setupButton() {
         binding.apply {
@@ -124,10 +132,29 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 timeMovies.text = TimeUtils.formatRuntimeToHoursMinutes(data.runtime)
                 synopsisMovies.text = data.synopsis
                 setGenreMoviesInChipGroup(data.genres)
+                favoriteMovies(data)
                 fetchActorMovies()
             }
         }
 
+    }
+
+    private fun favoriteMovies(data: MovieDetails) {
+        lifecycleScope.launch {
+            moviesIdStateFlow.collectLatest { moviesId ->
+                val isFavorite = favoriteViewModel.isMovieFavorite(moviesId)
+                binding.btnFavorite.isChecked = isFavorite
+
+                val movies = FavoriteMovieEntity(
+                    id = data.moviesId,
+                    title = data.title,
+                    posterUrl = "${Constant.path_image_base_url}${data.image_poster}"
+                )
+                binding.btnFavorite.setOnClickListener {
+                    favoriteViewModel.toggleFavoriteStatus(movies, isFavorite)
+                }
+            }
+        }
     }
 
     private fun fetchActorMovies() {
@@ -138,7 +165,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
                     val data = it.data
                     if (data != null) {
                         adapter = MoviesActorAdapter(data)
-                        initRecylerViewActor()
+                        initRecyclerViewActor()
                     }
                 }
                 is Status.Error -> {
@@ -148,7 +175,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecylerViewActor() {
+    private fun initRecyclerViewActor() {
         binding.apply {
             rvActor.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
             rvActor.adapter = adapter

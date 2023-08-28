@@ -1,9 +1,10 @@
 package com.raflisalam.fakeneflix.di
 
-import android.graphics.Movie
+import com.raflisalam.fakeneflix.domain.repository.FavoriteMoviesRepository
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.favorite_movies.FavoriteMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
@@ -22,6 +23,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -81,6 +83,14 @@ object DomainModule {
         repository: MoviesRepository
     ): SearchMoviesUseCase {
         return SearchMoviesUseCaseImpl(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteMoviesUseCase(
+        repository: FavoriteMoviesRepository)
+    : FavoriteMoviesUseCase {
+        return FavoriteMoviesUseCase(repository)
     }
 
 }

@@ -159,5 +159,6 @@ class MoviesRepositoryImpl @Inject constructor(
             emit(Status.Error("Couldn't reach server. Check your internet connection"))
         }  catch (e: Exception) {
             emit(Status.Error("An unexpected error occurred"))
-        }    }
+        }
+    }
 }
