@@ -1,7 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
@@ -17,17 +16,16 @@ import com.google.android.material.chip.ChipGroup
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
-import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
-import com.raflisalam.fakeneflix.data.local.entity.FavoriteMovieEntity
 import com.raflisalam.fakeneflix.data.remote.model.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
+import com.raflisalam.fakeneflix.domain.model.WatchlistMovies
 import com.raflisalam.fakeneflix.domain.model.MovieDetails
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesActorAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
-import com.raflisalam.fakeneflix.presentation.viewmodel.FavoriteMoviesViewModel
+import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,10 +34,9 @@ class DetailsMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsMoviesBinding
     private lateinit var adapter: MoviesActorAdapter
     private val viewModel: DetailsMoviesViewModel by viewModels()
-    private val favoriteViewModel: FavoriteMoviesViewModel by viewModels()
+    private val watchlistVieModel: WatchlistMoviesViewModel by viewModels()
 
-    private val moviesIdStateFlow = MoviesIdStateFlow.getCurrentIdMovies()
-    private var isFavorite: Boolean = false
+    private var watchlistState: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +106,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
                         iconTime.visibility = View.VISIBLE
                         rvActor.visibility = View.VISIBLE
                         textHeadActors.visibility = View.VISIBLE
+                        btnWatchlist.visibility = View.VISIBLE
                     }
                 }
                 is Status.Error -> {
@@ -132,28 +130,38 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 timeMovies.text = TimeUtils.formatRuntimeToHoursMinutes(data.runtime)
                 synopsisMovies.text = data.synopsis
                 setGenreMoviesInChipGroup(data.genres)
-                favoriteMovies(data)
                 fetchActorMovies()
+                checkMoviesIsWatchlist(data)
+                watchlistMovies(data)
             }
         }
 
     }
 
-    private fun favoriteMovies(data: MovieDetails) {
+    private fun checkMoviesIsWatchlist(data: MovieDetails) {
         lifecycleScope.launch {
-            moviesIdStateFlow.collectLatest { moviesId ->
-                val isFavorite = favoriteViewModel.isMovieFavorite(moviesId)
-                binding.btnFavorite.isChecked = isFavorite
-
-                val movies = FavoriteMovieEntity(
-                    id = data.moviesId,
-                    title = data.title,
-                    posterUrl = "${Constant.path_image_base_url}${data.image_poster}"
-                )
-                binding.btnFavorite.setOnClickListener {
-                    favoriteViewModel.toggleFavoriteStatus(movies, isFavorite)
-                }
+            val isWatchlist = watchlistVieModel.watchlistMovies.firstOrNull()?.any { it.id == data.moviesId} == true
+            if (isWatchlist) {
+                watchlistState = true
+                binding.btnWatchlist.isChecked = true
+            } else {
+                watchlistState = false
+                binding.btnWatchlist.isChecked = false
             }
+        }
+    }
+
+    private fun watchlistMovies(data: MovieDetails) {
+        binding.btnWatchlist.setOnClickListener {
+            val movies = WatchlistMovies(
+                id = data.moviesId,
+                title = data.title,
+                image_poster = data.image_poster,
+                description = data.synopsis,
+                rating = data.rating,
+                release_date = data.release_date
+            )
+            watchlistVieModel.toggleWatchlistMovies(movies)
         }
     }
 

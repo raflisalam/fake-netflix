@@ -1,7 +1,7 @@
 package com.raflisalam.fakeneflix.di
 
-import com.raflisalam.fakeneflix.data.repository.FavoriteMovieRepositoryImpl
-import com.raflisalam.fakeneflix.domain.repository.FavoriteMoviesRepository
+import com.raflisalam.fakeneflix.data.local.WatchlistMoviesDao
+import com.raflisalam.fakeneflix.domain.repository.WatchlistMoviesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +14,9 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideFavoriteMovieRepository(
-        repository: FavoriteMovieRepositoryImpl
-    ): FavoriteMoviesRepository {
-        return repository
+    fun provideWatchlistMoviesRepository(
+        watchlistMoviesDao: WatchlistMoviesDao
+    ): WatchlistMoviesRepository {
+        return WatchlistMoviesRepository(watchlistMoviesDao)
     }
 }

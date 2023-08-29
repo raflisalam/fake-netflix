@@ -2,7 +2,7 @@ package com.raflisalam.fakeneflix.di
 
 import android.content.Context
 import androidx.room.Room
-import com.raflisalam.fakeneflix.data.local.FavoriteMovieDao
+import com.raflisalam.fakeneflix.data.local.WatchlistMoviesDao
 import com.raflisalam.fakeneflix.data.local.room.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,7 +25,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideFavoriteMovieDao(appDatabase: AppDatabase): FavoriteMovieDao {
+    fun provideFavoriteMovieDao(appDatabase: AppDatabase): WatchlistMoviesDao {
         return appDatabase.favoriteMovieDao()
     }
 }
