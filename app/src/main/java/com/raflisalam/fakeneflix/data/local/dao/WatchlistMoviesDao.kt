@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.data.local
+package com.raflisalam.fakeneflix.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
 import kotlinx.coroutines.flow.Flow
-
 
 @Dao
 interface WatchlistMoviesDao {

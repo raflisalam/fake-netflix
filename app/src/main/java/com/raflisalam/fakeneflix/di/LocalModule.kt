@@ -1,6 +1,6 @@
 package com.raflisalam.fakeneflix.di
 
-import com.raflisalam.fakeneflix.data.local.WatchlistMoviesDao
+import com.raflisalam.fakeneflix.data.local.dao.WatchlistMoviesDao
 import com.raflisalam.fakeneflix.domain.repository.WatchlistMoviesRepository
 import dagger.Module
 import dagger.Provides

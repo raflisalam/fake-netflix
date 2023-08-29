@@ -9,6 +9,7 @@ import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
 import com.raflisalam.fakeneflix.databinding.ItemFavoriteMoviesBinding
+import com.raflisalam.fakeneflix.domain.model.Movies
 
 class MoviesWatchlistAdapter(
     private var listMovies: List<WatchlistMoviesEntity>,

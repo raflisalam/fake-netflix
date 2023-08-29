@@ -1,10 +1,11 @@
 package com.raflisalam.fakeneflix.domain.repository
 
-import com.raflisalam.fakeneflix.data.local.WatchlistMoviesDao
+import com.raflisalam.fakeneflix.data.local.dao.WatchlistMoviesDao
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+
 
 class WatchlistMoviesRepository @Inject constructor(
     private val watchlistMoviesDao: WatchlistMoviesDao

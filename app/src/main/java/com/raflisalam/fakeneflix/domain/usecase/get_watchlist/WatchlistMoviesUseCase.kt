@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.domain.usecase.favorite_movies
+package com.raflisalam.fakeneflix.domain.usecase.get_watchlist
 
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
 import com.raflisalam.fakeneflix.domain.model.WatchlistMovies

@@ -1,6 +1,7 @@
 package com.raflisalam.fakeneflix.presentation.ui.details
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
@@ -19,8 +20,8 @@ import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
 import com.raflisalam.fakeneflix.data.remote.model.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
-import com.raflisalam.fakeneflix.domain.model.WatchlistMovies
 import com.raflisalam.fakeneflix.domain.model.MovieDetails
+import com.raflisalam.fakeneflix.domain.model.WatchlistMovies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesActorAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
@@ -34,7 +35,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsMoviesBinding
     private lateinit var adapter: MoviesActorAdapter
     private val viewModel: DetailsMoviesViewModel by viewModels()
-    private val watchlistVieModel: WatchlistMoviesViewModel by viewModels()
+    private val watchlistViewModel: WatchlistMoviesViewModel by viewModels()
 
     private var watchlistState: Boolean = false
 
@@ -140,7 +141,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
 
     private fun checkMoviesIsWatchlist(data: MovieDetails) {
         lifecycleScope.launch {
-            val isWatchlist = watchlistVieModel.watchlistMovies.firstOrNull()?.any { it.id == data.moviesId} == true
+            val isWatchlist = watchlistViewModel.watchlistMovies.firstOrNull()?.any { it.id == data.moviesId} == true
             if (isWatchlist) {
                 watchlistState = true
                 binding.btnWatchlist.isChecked = true
@@ -161,7 +162,12 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 rating = data.rating,
                 release_date = data.release_date
             )
-            watchlistVieModel.toggleWatchlistMovies(movies)
+            watchlistViewModel.toggleWatchlistMovies(movies)
+        }
+        lifecycleScope.launch {
+            watchlistViewModel.watchlistMovies.collect {
+                Log.d("WATCHLIST", it.toString())
+            }
         }
     }
 

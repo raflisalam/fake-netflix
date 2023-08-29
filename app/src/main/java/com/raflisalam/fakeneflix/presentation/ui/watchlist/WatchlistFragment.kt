@@ -24,8 +24,8 @@ class WatchlistFragment : Fragment(), OnItemMoviesClickListener {
     private var _binding: FragmentWatchlistBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: WatchlistMoviesViewModel by viewModels()
     private lateinit var adapter: MoviesWatchlistAdapter
+    private val viewModel: WatchlistMoviesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +46,8 @@ class WatchlistFragment : Fragment(), OnItemMoviesClickListener {
     private fun initFetchWatchlistMovies() {
         lifecycleScope.launch {
             viewModel.watchlistMovies.collect { data ->
-                    adapter = MoviesWatchlistAdapter(data, this@WatchlistFragment)
-                    showWatchlistMovies()
+                adapter = MoviesWatchlistAdapter(data, this@WatchlistFragment)
+                showWatchlistMovies()
             }
         }
     }
