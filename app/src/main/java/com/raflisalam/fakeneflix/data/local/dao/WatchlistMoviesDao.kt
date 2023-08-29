@@ -16,6 +16,9 @@ interface WatchlistMoviesDao {
     @Delete
     suspend fun removeWatchlistMovie(movie: WatchlistMoviesEntity)
 
+    @Query("DELETE FROM watchlist_movies WHERE id = :movieId")
+    suspend fun deleteWatchlistMovies(movieId: Int)
+
     @Query("SELECT * FROM watchlist_movies")
     fun getWatchlistMovies(): Flow<List<WatchlistMoviesEntity>>
 }

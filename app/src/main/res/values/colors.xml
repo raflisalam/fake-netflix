@@ -9,5 +9,6 @@
     <color name="track_progress_color">#878585</color>
     <color name="card_item_background">#121212</color>
     <color name="color_stroke_cardView_item">@color/black</color>
+    <color name="color_background_swipe">#FD6C6C</color>
 
 </resources>

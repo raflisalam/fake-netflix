@@ -21,6 +21,10 @@ class WatchlistMoviesRepository @Inject constructor(
         watchlistMoviesDao.addWatchlistMovie(movie)
     }
 
+    suspend fun deleteWatchlistMovies(movieId: Int) {
+        watchlistMoviesDao.deleteWatchlistMovies(movieId)
+    }
+
     suspend fun removeWatchlistMovies(movie: WatchlistMoviesEntity) {
         watchlistMoviesDao.removeWatchlistMovie(movie)
     }

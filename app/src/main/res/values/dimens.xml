@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="view_pager_height">280dp</dimen>
     <dimen name="view_pager_width">184dp</dimen>
+    <dimen name="lottie_size">48dp</dimen>
+    <dimen name="icon_horizontal_margin">22dp</dimen>
 </resources>

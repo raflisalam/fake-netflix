@@ -24,4 +24,10 @@ class WatchlistMoviesViewModel @Inject constructor(
         }
     }
 
+    fun removeFromWatchlist(movieId: Int) {
+        viewModelScope.launch {
+            useCase.deleteFromWatchlist(movieId)
+        }
+    }
+
 }

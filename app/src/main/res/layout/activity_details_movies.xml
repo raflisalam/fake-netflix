@@ -206,6 +206,140 @@
             android:layout_height="wrap_content"
             android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@+id/text_head_actors"/>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_about_film"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#0A0A0A"
+            app:layout_constraintTop_toBottomOf="@+id/rvActor">
+
+            <TextView
+                android:id="@+id/text_head_about_film"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:visibility="visible"
+                android:text="About Film"
+                android:textColor="#9D9D9D"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_original_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                android:text="Original Title :"
+                android:textColor="#686868"
+                app:layout_constraintTop_toBottomOf="@id/text_head_about_film"
+                app:layout_constraintStart_toStartOf="@id/text_head_about_film"/>
+
+            <TextView
+                android:id="@+id/original_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/genre"
+                app:layout_constraintTop_toTopOf="@id/text_original_title" />
+
+            <TextView
+                android:id="@+id/text_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@id/text_original_title"
+                app:layout_constraintTop_toBottomOf="@+id/original_title" />
+
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/production"
+                app:layout_constraintTop_toTopOf="@id/text_genre" />
+
+            <TextView
+                android:id="@+id/text_production"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Production :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/text_genre"
+                app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+            <TextView
+                android:id="@+id/production"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/release_date"
+                app:layout_constraintTop_toTopOf="@id/text_production" />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Release Date :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/text_production"
+                app:layout_constraintTop_toBottomOf="@+id/production" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_release_date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintTop_toTopOf="@id/text_release_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecommendations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_about_film" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/loading"

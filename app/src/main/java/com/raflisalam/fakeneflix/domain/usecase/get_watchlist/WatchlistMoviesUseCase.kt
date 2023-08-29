@@ -26,6 +26,11 @@ class WatchlistMoviesUseCase @Inject constructor(
         }
     }
 
+
+    suspend fun deleteFromWatchlist(movieId: Int) {
+        repository.deleteWatchlistMovies(movieId)
+    }
+
     fun execute(): Flow<List<WatchlistMoviesEntity>> {
         return repository.watchlistMovies
     }
