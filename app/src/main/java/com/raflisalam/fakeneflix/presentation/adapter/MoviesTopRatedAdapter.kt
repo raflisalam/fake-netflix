@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.ItemMoviesTopRatedBinding
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class MoviesTopRatedAdapter(
     private var listMoviesTopRated: List<Movies>,

@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.domain.model
+package com.raflisalam.fakeneflix.domain.model.movies
 
 data class Movies(
     val id: Int,

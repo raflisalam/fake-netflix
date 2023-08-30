@@ -1,14 +1,12 @@
 package com.raflisalam.fakeneflix.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
@@ -17,9 +15,7 @@ import com.raflisalam.fakeneflix.domain.usecase.get_trending.GetTrendingMoviesUs
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject

@@ -42,4 +42,22 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/text_head_trending" />
 
+    <TextView
+        android:id="@+id/text_head_popular_actors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Popular Actors"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/text_head_trending"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPopularActors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/text_head_popular_actors" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

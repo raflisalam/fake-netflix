@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener

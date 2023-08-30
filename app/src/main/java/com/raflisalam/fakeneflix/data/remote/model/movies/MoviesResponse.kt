@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.data.remote.model
+package com.raflisalam.fakeneflix.data.remote.model.movies
 
 data class MoviesResponse(
     val results: List<Results>

@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FakeNeflix" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorSecondaryContainer">#80000000</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnSurface">@color/colorInactive</item>
     </style>
 
     <style name="Theme.FakeNeflix" parent="Base.Theme.FakeNeflix" />
@@ -13,7 +14,6 @@
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
-
 
     <style name="CustomSearchViewTheme" parent="Theme.AppCompat">
         <item name="android:textSize">12sp</item>

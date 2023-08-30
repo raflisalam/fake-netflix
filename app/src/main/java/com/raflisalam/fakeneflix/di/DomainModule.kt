@@ -1,14 +1,19 @@
 package com.raflisalam.fakeneflix.di
 
+import com.raflisalam.fakeneflix.domain.repository.ActorsRepository
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
-import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCase
-import com.raflisalam.fakeneflix.domain.usecase.get_details_movie.get_credits_movie.GetCreditsMovieUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_credits_movie.GetCreditsMovieUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_credits_movie.GetCreditsMovieUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_recommendations.GetRecommendationsMoviesUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_recommendations.GetRecommendationsMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_nowplaying.GetNowPlayingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_popular.GetPopularMoviesUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_popular_actors.GetPopularActorsUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_popular_actors.GetPopularActorsUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_toprated.GetTopRatedMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_trending.GetTrendingMoviesUseCase
@@ -82,6 +87,18 @@ object DomainModule {
         return SearchMoviesUseCaseImpl(repository)
     }
 
+    @Provides
+    fun provideGetRecommendationsMoviesUseCase(
+        repository: MoviesRepository
+    ): GetRecommendationsMoviesUseCase {
+        return GetRecommendationsMoviesUseCaseImpl(repository)
+    }
 
+    @Provides
+    fun provideGetPopularActorsUseCase(
+        repository: ActorsRepository
+    ): GetPopularActorsUseCase {
+        return GetPopularActorsUseCaseImpl(repository)
+    }
 
 }

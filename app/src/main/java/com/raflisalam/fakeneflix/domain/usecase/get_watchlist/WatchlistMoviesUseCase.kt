@@ -1,7 +1,7 @@
 package com.raflisalam.fakeneflix.domain.usecase.get_watchlist
 
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
-import com.raflisalam.fakeneflix.domain.model.WatchlistMovies
+import com.raflisalam.fakeneflix.domain.model.movies.WatchlistMovies
 import com.raflisalam.fakeneflix.domain.repository.WatchlistMoviesRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

@@ -8,8 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.ItemMoviesPopularBinding
-import com.raflisalam.fakeneflix.domain.model.Movies
-import okhttp3.internal.notify
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class MoviesAdapter(
     private var listMoviesPopular: List<Movies>,

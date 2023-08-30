@@ -1,7 +1,7 @@
 package com.raflisalam.fakeneflix.domain.usecase.get_toprated
 
 import com.raflisalam.fakeneflix.common.Status
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

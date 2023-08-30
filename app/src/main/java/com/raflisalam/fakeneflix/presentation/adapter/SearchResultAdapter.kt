@@ -8,7 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.ItemSearchResultBinding
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class SearchResultAdapter(
     private var listMovies: List<Movies>,

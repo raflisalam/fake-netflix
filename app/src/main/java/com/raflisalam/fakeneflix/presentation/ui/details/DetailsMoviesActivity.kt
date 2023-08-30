@@ -8,21 +8,22 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.setPadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
-import com.raflisalam.fakeneflix.data.remote.model.Genre
+import com.raflisalam.fakeneflix.data.remote.model.movies.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
-import com.raflisalam.fakeneflix.domain.model.MovieDetails
-import com.raflisalam.fakeneflix.domain.model.WatchlistMovies
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesActorAdapter
+import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
+import com.raflisalam.fakeneflix.domain.model.movies.WatchlistMovies
+import com.raflisalam.fakeneflix.presentation.adapter.MoviesCastAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.MoviesRecommendationsAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,9 @@ import kotlinx.coroutines.launch
 class DetailsMoviesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailsMoviesBinding
-    private lateinit var adapter: MoviesActorAdapter
+    private lateinit var actorAdapter: MoviesCastAdapter
+    private lateinit var recommendationsAdapter: MoviesRecommendationsAdapter
+
     private val viewModel: DetailsMoviesViewModel by viewModels()
     private val watchlistViewModel: WatchlistMoviesViewModel by viewModels()
 
@@ -106,6 +109,8 @@ class DetailsMoviesActivity : AppCompatActivity() {
                         iconRating.visibility = View.VISIBLE
                         iconTime.visibility = View.VISIBLE
                         rvActor.visibility = View.VISIBLE
+                        rvRecommendations.visibility = View.VISIBLE
+                        layoutAboutFilm.visibility = View.VISIBLE
                         textHeadActors.visibility = View.VISIBLE
                         btnWatchlist.visibility = View.VISIBLE
                     }
@@ -130,8 +135,13 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 ratingVotes.text = data.rating_vote.toString()
                 timeMovies.text = TimeUtils.formatRuntimeToHoursMinutes(data.runtime)
                 synopsisMovies.text = data.synopsis
+                originalTitle.text = data.original_title
+                releaseDate.text = TimeUtils.formatDate(data.release_date)
+                production.text = data.productionCountry[0].name
+                tagline.text = data.tagline
                 setGenreMoviesInChipGroup(data.genres)
                 fetchActorMovies()
+                fetchRecommendationsMovies()
                 checkMoviesIsWatchlist(data)
                 watchlistMovies(data)
             }
@@ -164,26 +174,47 @@ class DetailsMoviesActivity : AppCompatActivity() {
             )
             watchlistViewModel.toggleWatchlistMovies(movies)
         }
-        lifecycleScope.launch {
-            watchlistViewModel.watchlistMovies.collect {
-                Log.d("WATCHLIST", it.toString())
+    }
+
+    private fun fetchRecommendationsMovies() {
+        viewModel.fetchRecommendationsMovies()
+        viewModel.getRecommendationsMovies.observe(this) {
+            when (it) {
+                is Status.Success -> {
+                    val data = it.data
+                    if (data != null) {
+                        binding.textHeadRecommendations.visibility = View.VISIBLE
+                        recommendationsAdapter = MoviesRecommendationsAdapter(data)
+                        initRecyclerViewRecommendations()
+                    } else {
+                        binding.textHeadRecommendations.visibility = View.INVISIBLE
+                    }
+                }
+
+                else -> {}
             }
+        }
+    }
+
+    private fun initRecyclerViewRecommendations() {
+        binding.apply {
+            rvRecommendations.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvRecommendations.adapter = recommendationsAdapter
         }
     }
 
     private fun fetchActorMovies() {
         viewModel.fetchCreditsActorMovies()
-        viewModel.getCreditsActorMovie.observe(this) {
+        viewModel.getCreditsCastMovie.observe(this) {
             when (it) {
                 is Status.Success -> {
                     val data = it.data
                     if (data != null) {
-                        adapter = MoviesActorAdapter(data)
+                        actorAdapter = MoviesCastAdapter(data)
                         initRecyclerViewActor()
                     }
                 }
-                is Status.Error -> {
-                }
+
                 else -> {}
             }
         }
@@ -192,24 +223,22 @@ class DetailsMoviesActivity : AppCompatActivity() {
     private fun initRecyclerViewActor() {
         binding.apply {
             rvActor.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
-            rvActor.adapter = adapter
+            rvActor.adapter = actorAdapter
         }
     }
 
     private fun setGenreMoviesInChipGroup(genres: List<Genre>?) {
         if (genres != null) {
             for (genre in genres) {
+                binding.genre.text = genre.name
                 val chip = Chip(this)
                 chip.text = genre.name
                 chip.textColors
+                chip.setPadding(5)
                 chip.isCheckedIconVisible = false
                 chip.textSize = 12f
                 chip.setChipBackgroundColorResource(R.color.chip_background)
                 chip.setTextColor(resources.getColor(R.color.chip_text, null))
-                chip.layoutParams = ChipGroup.LayoutParams(
-                    ChipGroup.LayoutParams.WRAP_CONTENT,
-                    ChipGroup.LayoutParams.WRAP_CONTENT
-                )
                 binding.chipGenreMovies.addView(chip)
             }
         }

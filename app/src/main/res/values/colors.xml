@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorInactive">#00FFFFFF</color>
+    <color name="colorInactive">#9D9D9D</color>
+    <color name="colorPrimary">#80B8C2C8</color>
     <color name="chip_background">#918F8F</color>
     <color name="chip_text">#fff</color>
     <color name="indicator_progress_color">@color/white</color>

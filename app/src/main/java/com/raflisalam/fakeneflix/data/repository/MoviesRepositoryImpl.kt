@@ -3,10 +3,10 @@ package com.raflisalam.fakeneflix.data.repository
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseCreditsCastToModel
 import com.raflisalam.fakeneflix.common.getResponseMovieToModel
-import com.raflisalam.fakeneflix.data.remote.model.MovieDetailsDto
+import com.raflisalam.fakeneflix.data.remote.model.movies.MovieDetailsDto
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
-import com.raflisalam.fakeneflix.domain.model.Actor
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.credits.Cast
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -102,7 +102,26 @@ class MoviesRepositoryImpl @Inject constructor(
         return apiServices.getDetailsMovieById(movieId)
     }
 
-    override suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<Actor>>> = flow {
+    override suspend fun getRecommendationsMovies(movieId: Int, page: Int): Flow<Status<List<Movies>>> = flow {
+        try {
+            val response = apiServices.getRecommendationsMovies(movieId, page)
+            if (response.isSuccessful) {
+                val movies = response.body()
+                val listMovies = getResponseMovieToModel(movies)
+                emit(Status.Success(listMovies))
+            } else {
+                emit(Status.Error("API request failed with code ${response.code()}"))
+            }
+        } catch (e: HttpException) {
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
+        } catch (e: IOException) {
+            emit(Status.Error("Couldn't reach server. Check your internet connection"))
+        }  catch (e: Exception) {
+            emit(Status.Error("An unexpected error occurred ${e.localizedMessage}"))
+        }
+    }
+
+    override suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<Cast>>> = flow {
         try {
             emit(Status.Loading())
             val response = apiServices.getCreditsMovieById(movieId)

@@ -1,7 +1,5 @@
 package com.raflisalam.fakeneflix.data.remote.model.credits
 
-import com.raflisalam.fakeneflix.domain.model.Actor
-
 data class CastDto(
     val adult: Boolean,
     val cast_id: Int,

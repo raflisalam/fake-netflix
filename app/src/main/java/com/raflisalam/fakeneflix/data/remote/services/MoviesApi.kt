@@ -1,13 +1,13 @@
 package com.raflisalam.fakeneflix.data.remote.services
 
-import android.graphics.Movie
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.data.remote.model.MovieDetailsDto
-import com.raflisalam.fakeneflix.data.remote.model.MoviesResponse
+import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsDetailsDto
+import com.raflisalam.fakeneflix.data.remote.model.movies.MovieDetailsDto
+import com.raflisalam.fakeneflix.data.remote.model.movies.MoviesResponse
+import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsResponse
 import com.raflisalam.fakeneflix.data.remote.model.credits.MovieCredits
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -42,6 +42,12 @@ interface MoviesApi {
         @Path("movie_id") moviesId: Int
     ): Response<MovieCredits>
 
+    @GET("movie/{movie_id}/recommendations")
+    suspend fun getRecommendationsMovies(
+        @Path("movie_id") moviesId: Int,
+        @Query("page") page: Int
+    ): Response<MoviesResponse>
+
     @GET("search/movie")
     suspend fun getMoviesByName(
         @Query("query") moviesName: String
@@ -51,5 +57,17 @@ interface MoviesApi {
     suspend fun getTrendingMovies(
         @Path("time_window") timePeriod: String
     ): Response<MoviesResponse>
+
+
+    //actors endpoint services
+    @GET("person/popular?api_key${Constant.API_KEY}")
+    suspend fun getPopularActors(
+        @Query("page") position: Int
+    ): Response<ActorsResponse>
+
+    @GET("person/{person_id}?api_key=${Constant.API_KEY}&append_to_response=movie_credits")
+    suspend fun getDetailActorsById(
+        @Path("person_id") personId: Int
+    ): ActorsDetailsDto
 
 }

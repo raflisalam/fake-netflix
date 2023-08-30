@@ -13,7 +13,7 @@ import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
-import com.raflisalam.fakeneflix.domain.model.Movies
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter

@@ -1,6 +1,6 @@
-package com.raflisalam.fakeneflix.data.remote.model
+package com.raflisalam.fakeneflix.data.remote.model.movies
 
-import com.raflisalam.fakeneflix.domain.model.MovieDetails
+import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
 
 data class MovieDetailsDto(
     val adult: Boolean,
@@ -43,6 +43,9 @@ fun MovieDetailsDto.toMovieDetails() : MovieDetails {
         title = title,
         videos = videos,
         rating = vote_average,
-        rating_vote = vote_count
+        rating_vote = vote_count,
+        productionCountry = production_countries,
+        original_title = original_title,
+        tagline = tagline
     )
 }
