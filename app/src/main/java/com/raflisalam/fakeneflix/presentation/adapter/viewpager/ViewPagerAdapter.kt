@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.presentation.adapter
+package com.raflisalam.fakeneflix.presentation.adapter.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

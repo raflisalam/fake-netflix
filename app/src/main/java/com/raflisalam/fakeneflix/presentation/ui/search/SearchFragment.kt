@@ -5,27 +5,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentSearchBinding
 import com.raflisalam.fakeneflix.domain.model.actors.Actors
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.PopularActorsAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.SearchResultAdapter
-import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
+import com.raflisalam.fakeneflix.presentation.ui.details.actors.DetailActorsActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.ActorsViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), OnItemMoviesClickListener {
+class SearchFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
@@ -100,7 +101,7 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
     }
 
     private fun showPopularActors(data: List<Actors>) {
-        popularActorsAdapter = PopularActorsAdapter(data)
+        popularActorsAdapter = PopularActorsAdapter(data, this)
         binding.apply {
             rvPopularActors.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvPopularActors.adapter = popularActorsAdapter
@@ -156,12 +157,21 @@ class SearchFragment : Fragment(), OnItemMoviesClickListener {
         _binding = null
     }
 
-    override fun onItemMoviesClick(moviesId: Int) {
-        MoviesIdStateFlow.onMoviesSelected(moviesId)
+    override fun onItemMoviesClick(id: Int) {
+        MoviesIdStateFlow.onMoviesSelected(id)
         showMovieDetails()
     }
 
+    override fun onItemActorsClick(id: Int) {
+        ActorsIdStateFlow.onActorsSelected(id)
+        showActorsDetail()
+    }
+
+    private fun showActorsDetail() {
+        startActivity(Intent(requireContext(), DetailActorsActivity::class.java))
+    }
+
     private fun showMovieDetails() {
-        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
+        startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }
 }

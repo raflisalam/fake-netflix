@@ -1,7 +1,7 @@
 package com.raflisalam.fakeneflix.presentation.ui.details
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
@@ -17,6 +17,9 @@ import com.google.android.material.chip.Chip
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
+import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
 import com.raflisalam.fakeneflix.data.remote.model.movies.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
@@ -24,6 +27,7 @@ import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
 import com.raflisalam.fakeneflix.domain.model.movies.WatchlistMovies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesCastAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesRecommendationsAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.actors.DetailActorsActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +35,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailsMoviesActivity : AppCompatActivity() {
+class DetailMoviesActivity : AppCompatActivity(), OnItemClickListener {
 
     private lateinit var binding: ActivityDetailsMoviesBinding
     private lateinit var actorAdapter: MoviesCastAdapter
@@ -126,7 +130,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
     private fun updateUI(data: MovieDetails?) {
         if (data != null) {
             binding.apply {
-                Glide.with(this@DetailsMoviesActivity)
+                Glide.with(this@DetailMoviesActivity)
                     .load("${Constant.path_image_base_url}${data.backdrop_poster}")
                     .apply(RequestOptions())
                     .into(imagePoster)
@@ -190,7 +194,6 @@ class DetailsMoviesActivity : AppCompatActivity() {
                         binding.textHeadRecommendations.visibility = View.INVISIBLE
                     }
                 }
-
                 else -> {}
             }
         }
@@ -198,7 +201,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
 
     private fun initRecyclerViewRecommendations() {
         binding.apply {
-            rvRecommendations.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvRecommendations.layoutManager = LinearLayoutManager(this@DetailMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
             rvRecommendations.adapter = recommendationsAdapter
         }
     }
@@ -210,7 +213,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
                 is Status.Success -> {
                     val data = it.data
                     if (data != null) {
-                        actorAdapter = MoviesCastAdapter(data)
+                        actorAdapter = MoviesCastAdapter(data, this)
                         initRecyclerViewActor()
                     }
                 }
@@ -222,7 +225,7 @@ class DetailsMoviesActivity : AppCompatActivity() {
 
     private fun initRecyclerViewActor() {
         binding.apply {
-            rvActor.layoutManager = LinearLayoutManager(this@DetailsMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
+            rvActor.layoutManager = LinearLayoutManager(this@DetailMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
             rvActor.adapter = actorAdapter
         }
     }
@@ -250,6 +253,18 @@ class DetailsMoviesActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onItemMoviesClick(id: Int) {
+    }
+
+    override fun onItemActorsClick(id: Int) {
+        ActorsIdStateFlow.onActorsSelected(id)
+        showActorsDetail()
+    }
+
+    private fun showActorsDetail() {
+        startActivity(Intent(this, DetailActorsActivity::class.java))
     }
 
 }

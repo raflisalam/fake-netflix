@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
-import com.raflisalam.fakeneflix.presentation.adapter.ViewPagerAdapter
-import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
+import com.raflisalam.fakeneflix.presentation.adapter.viewpager.ViewPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), OnItemMoviesClickListener {
+class HomeFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -72,7 +72,6 @@ class HomeFragment : Fragment(), OnItemMoviesClickListener {
             }.attach()
         }
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -156,12 +155,16 @@ class HomeFragment : Fragment(), OnItemMoviesClickListener {
         }
     }
 
-    override fun onItemMoviesClick(moviesId: Int) {
-        MoviesIdStateFlow.onMoviesSelected(moviesId)
+    override fun onItemMoviesClick(id: Int) {
+        MoviesIdStateFlow.onMoviesSelected(id)
         showMovieDetails()
     }
 
+    override fun onItemActorsClick(id: Int) {
+
+    }
+
     private fun showMovieDetails() {
-        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
+        startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }
 }

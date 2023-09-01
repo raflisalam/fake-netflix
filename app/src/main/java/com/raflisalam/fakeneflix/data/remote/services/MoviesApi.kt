@@ -32,11 +32,6 @@ interface MoviesApi {
         @Query("page") position: Int
     ): Response<MoviesResponse>
 
-    @GET("movie/{movie_id}?api_key=${Constant.API_KEY}&append_to_response=videos")
-    suspend fun getDetailsMovieById(
-        @Path("movie_id") moviesId: Int
-    ): MovieDetailsDto
-
     @GET("movie/{movie_id}/credits")
     suspend fun getCreditsMovieById(
         @Path("movie_id") moviesId: Int
@@ -59,15 +54,27 @@ interface MoviesApi {
     ): Response<MoviesResponse>
 
 
+    @GET("movie/{movie_id}?api_key=${Constant.API_KEY}&append_to_response=videos")
+    suspend fun getDetailsMovieById(
+        @Path("movie_id") moviesId: Int
+    ): MovieDetailsDto
+
+
     //actors endpoint services
     @GET("person/popular?api_key${Constant.API_KEY}")
     suspend fun getPopularActors(
         @Query("page") position: Int
     ): Response<ActorsResponse>
 
+
     @GET("person/{person_id}?api_key=${Constant.API_KEY}&append_to_response=movie_credits")
     suspend fun getDetailActorsById(
         @Path("person_id") personId: Int
     ): ActorsDetailsDto
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getCombineCreditsActor(
+        @Path("person_id") personId: Int
+    ): Response<MovieCredits>
 
 }

@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.presentation.adapter
+package com.raflisalam.fakeneflix.presentation.adapter.viewpager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.ItemViewPagerBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class MoviesPosterPagerAdapter(
     private var listMovies: List<Movies>?,
-    private val onItemMoviesClickListener: OnItemMoviesClickListener
+    private val onItemClickListener: OnItemClickListener
 ): RecyclerView.Adapter<MoviesPosterPagerAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemViewPagerBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -39,7 +39,7 @@ class MoviesPosterPagerAdapter(
         if (movie != null) {
             holder.bind(movie)
             holder.itemView.setOnClickListener {
-                onItemMoviesClickListener.onItemMoviesClick(movie.id)
+                onItemClickListener.onItemMoviesClick(movie.id)
             }
         }
     }

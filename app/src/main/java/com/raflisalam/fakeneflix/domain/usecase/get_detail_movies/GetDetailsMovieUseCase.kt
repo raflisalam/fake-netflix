@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.domain.usecase.get_detail_movies
 
+import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.data.remote.model.movies.toMovieDetails
 import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails

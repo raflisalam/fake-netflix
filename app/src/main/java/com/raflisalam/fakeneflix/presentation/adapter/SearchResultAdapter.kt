@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.ItemSearchResultBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class SearchResultAdapter(
     private var listMovies: List<Movies>,
-    private val onItemMoviesClickListener: OnItemMoviesClickListener
+    private val onItemClickListener: OnItemClickListener
 ): RecyclerView.Adapter<SearchResultAdapter.ViewHolder>() {
 
     fun updateData(newData: List<Movies>) {
@@ -50,7 +50,7 @@ class SearchResultAdapter(
         val item = listMovies[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            onItemMoviesClickListener.onItemMoviesClick(item.id)
+            onItemClickListener.onItemMoviesClick(item.id)
         }
     }
 }

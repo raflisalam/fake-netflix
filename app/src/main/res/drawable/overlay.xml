@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+    <bitmap
+        android:src="@drawable/poster_path4"
+        android:gravity="center" />
+    </item>
+    <item>
+    <bitmap
+        android:src="@drawable/background"
+        android:gravity="center"
+        android:alpha="0.5" />
+    </item>
+</layer-list>

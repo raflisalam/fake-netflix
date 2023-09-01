@@ -1,7 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.watchlist
 
 import MoviesWatchlistAdapter
-import android.animation.Animator
 import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
@@ -15,21 +14,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentWatchlistBinding
-import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WatchlistFragment : Fragment(), OnItemMoviesClickListener {
+class WatchlistFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentWatchlistBinding? = null
     private val binding get() = _binding!!
@@ -104,13 +100,17 @@ class WatchlistFragment : Fragment(), OnItemMoviesClickListener {
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
-    override fun onItemMoviesClick(moviesId: Int) {
-        MoviesIdStateFlow.onMoviesSelected(moviesId)
+    override fun onItemMoviesClick(id: Int) {
+        MoviesIdStateFlow.onMoviesSelected(id)
         showMovieDetails()
     }
 
+    override fun onItemActorsClick(id: Int) {
+
+    }
+
     private fun showMovieDetails() {
-        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
+        startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }
 
     override fun onDestroyView() {

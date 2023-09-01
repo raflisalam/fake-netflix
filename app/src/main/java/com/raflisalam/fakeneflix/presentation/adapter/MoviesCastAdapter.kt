@@ -7,13 +7,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.ItemCastMoviesBinding
 import com.raflisalam.fakeneflix.domain.model.credits.Cast
 
 class MoviesCastAdapter(
     private var listCast: List<Cast>,
-    private val onItemMoviesClickListener: OnItemMoviesClickListener
+    private val onItemClickListener: OnItemClickListener
 ): RecyclerView.Adapter<MoviesCastAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemCastMoviesBinding): RecyclerView.ViewHolder(binding.root) {
@@ -48,7 +48,7 @@ class MoviesCastAdapter(
         val item = listCast[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            onItemMoviesClickListener.onItemMoviesClick(item.id)
+            onItemClickListener.onItemActorsClick(item.id)
         }
     }
 }

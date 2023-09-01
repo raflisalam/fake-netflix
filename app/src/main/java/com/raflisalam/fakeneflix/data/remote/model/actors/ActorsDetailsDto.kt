@@ -22,10 +22,9 @@ data class ActorsDetailsDto(
 
 fun ActorsDetailsDto.toActorsDetail(): ActorsDetail {
     return ActorsDetail(
-        id = id,
+        personId = id,
         gender = gender,
         birthday = birthday,
-        deathDay = deathday.toString(),
         bio = biography,
         movie_credits = movie_credits,
         name = name,

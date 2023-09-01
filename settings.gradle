@@ -5,6 +5,9 @@ pluginManagement {
         maven {
             url "https://jitpack.io"
         }
+        maven {
+            url ("https://jcenter.bintray.com")
+        }
         gradlePluginPortal()
     }
 }
@@ -15,6 +18,9 @@ dependencyResolutionManagement {
         mavenCentral()
         maven {
             url "https://jitpack.io"
+        }
+        maven {
+            url ("https://jcenter.bintray.com")
         }
     }
 }

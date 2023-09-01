@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.data.repository
 
+import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseCreditsCastToModel
 import com.raflisalam.fakeneflix.common.getResponseMovieToModel
@@ -99,6 +100,7 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getDetailsMovieById(movieId: Int): MovieDetailsDto {
+        val movies = apiServices.getDetailsMovieById(movieId)
         return apiServices.getDetailsMovieById(movieId)
     }
 

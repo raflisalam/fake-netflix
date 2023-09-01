@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.data.repository
 
+import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseActorsToModel
 import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsDetailsDto
@@ -37,6 +38,7 @@ class ActorsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getDetailActorsById(personId: Int): ActorsDetailsDto {
+        val actors = apiServices.getDetailActorsById(personId)
         return apiServices.getDetailActorsById(personId)
     }
 }

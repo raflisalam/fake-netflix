@@ -3,7 +3,6 @@ package com.raflisalam.fakeneflix.presentation.ui.home.viewpager
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +14,16 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentNowPlayingBinding
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesPosterPagerAdapter
-import com.raflisalam.fakeneflix.presentation.ui.details.DetailsMoviesActivity
+import com.raflisalam.fakeneflix.presentation.adapter.viewpager.MoviesPosterPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NowPlayingFragment : Fragment(), OnItemMoviesClickListener {
+class NowPlayingFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding!!
@@ -126,13 +125,17 @@ class NowPlayingFragment : Fragment(), OnItemMoviesClickListener {
         stopAutoSlideNowPlayingMovies()
     }
 
-    override fun onItemMoviesClick(moviesId: Int) {
-        MoviesIdStateFlow.onMoviesSelected(moviesId)
+    override fun onItemMoviesClick(id: Int) {
+        MoviesIdStateFlow.onMoviesSelected(id)
         showMovieDetails()
     }
 
+    override fun onItemActorsClick(id: Int) {
+
+    }
+
     private fun showMovieDetails() {
-        startActivity(Intent(requireContext(), DetailsMoviesActivity::class.java))
+        startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }
 
 }

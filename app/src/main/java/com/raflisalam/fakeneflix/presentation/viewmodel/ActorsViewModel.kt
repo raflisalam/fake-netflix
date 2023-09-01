@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,9 +45,9 @@ class ActorsViewModel @Inject constructor(
     }
 
     private val _getActorsDetail = MutableLiveData<Status<ActorsDetail>>()
-    val actorsDetail: LiveData<Status<ActorsDetail>> = _getActorsDetail
+    val actorsDetail: LiveData<Status<ActorsDetail>> get() = _getActorsDetail
 
-    fun fetchMovieDetails() {
+    fun fetchActorsDetail() {
         viewModelScope.launch {
             _getActorsDetail.value = Status.Loading()
             try {

@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface ActorsRepository {
 
     suspend fun getPopularActors(page: Int): Flow<Status<List<Actors>>>
-
     suspend fun getDetailActorsById(personId: Int): ActorsDetailsDto
+
 }

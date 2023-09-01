@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemMoviesClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
 import com.raflisalam.fakeneflix.databinding.ItemMoviesTopRatedBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
 class MoviesTopRatedAdapter(
     private var listMoviesTopRated: List<Movies>,
-    private val onItemMoviesClickListener: OnItemMoviesClickListener
+    private val onItemClickListener: OnItemClickListener
 ): RecyclerView.Adapter<MoviesTopRatedAdapter.ViewHolder>() {
 
     class ViewHolder(private val binding: ItemMoviesTopRatedBinding): RecyclerView.ViewHolder(binding.root) {
@@ -44,7 +44,7 @@ class MoviesTopRatedAdapter(
         val movie = listMoviesTopRated[position]
         holder.bind(movie)
         holder.itemView.setOnClickListener {
-            onItemMoviesClickListener.onItemMoviesClick(movie.id)
+            onItemClickListener.onItemMoviesClick(movie.id)
         }
     }
 
