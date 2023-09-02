@@ -2,7 +2,6 @@ package com.raflisalam.fakeneflix.presentation.ui.details.actors
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -10,10 +9,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
-import com.raflisalam.fakeneflix.common.utils.Convert
+import com.raflisalam.fakeneflix.common.helper.Convert
 import com.raflisalam.fakeneflix.databinding.ActivityDetailActorsBinding
 import com.raflisalam.fakeneflix.domain.model.actors.ActorsDetail
 import com.raflisalam.fakeneflix.presentation.adapter.viewpager.ViewPagerAdapter
+import com.raflisalam.fakeneflix.presentation.ui.details.actors.viewpager.MovieCreditsActorsFragment
+import com.raflisalam.fakeneflix.presentation.ui.details.actors.viewpager.OverviewActorsFragment
 import com.raflisalam.fakeneflix.presentation.viewmodel.ActorsViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,13 +35,22 @@ class DetailActorsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initFetchActorsDetail()
+        setupButton()
         setupTabLayoutAndViewPager()
+    }
+
+    private fun setupButton() {
+        binding.apply {
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
+        }
     }
 
     private fun setupTabLayoutAndViewPager() {
         val fragmentList = listOf(
             OverviewActorsFragment(),
-            CreditsActorsFragment()
+            MovieCreditsActorsFragment()
         )
         binding.apply {
             val adapter = ViewPagerAdapter(this@DetailActorsActivity, fragmentList)
@@ -69,7 +79,6 @@ class DetailActorsActivity : AppCompatActivity() {
                 }
                 is Status.Success -> {
                     val data = it.data
-                    Log.d("PEOPLE", data.toString())
                     if (data != null) {
                         updateUI(data)
                     }

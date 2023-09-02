@@ -2,6 +2,7 @@ package com.raflisalam.fakeneflix.domain.model.movies
 
 data class Movies(
     val id: Int,
+    val genreId: List<Int>,
     val title: String,
     val poster: String,
     val background: String,

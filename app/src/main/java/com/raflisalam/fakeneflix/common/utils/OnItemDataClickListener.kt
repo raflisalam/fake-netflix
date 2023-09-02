@@ -1,6 +1,6 @@
 package com.raflisalam.fakeneflix.common.utils
 
-interface OnItemClickListener {
+interface OnItemDataClickListener {
     fun onItemMoviesClick(id: Int)
     fun onItemActorsClick(id: Int)
 }

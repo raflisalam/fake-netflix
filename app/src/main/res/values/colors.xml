@@ -11,5 +11,7 @@
     <color name="card_item_background">#121212</color>
     <color name="color_stroke_cardView_item">@color/black</color>
     <color name="color_background_swipe">#FD6C6C</color>
+    <color name="semi_transparent_black">#B3000000</color>
+
 
 </resources>

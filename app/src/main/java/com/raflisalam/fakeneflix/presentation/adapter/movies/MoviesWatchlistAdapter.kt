@@ -1,3 +1,5 @@
+package com.raflisalam.fakeneflix.presentation.adapter.movies
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -6,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.data.local.entity.WatchlistMoviesEntity
 import com.raflisalam.fakeneflix.databinding.ItemWatchlistMoviesBinding
 
 class MoviesWatchlistAdapter(
-    private val onItemClickListener: OnItemClickListener
+    private val onItemDataClickListener: OnItemDataClickListener
 ) : ListAdapter<WatchlistMoviesEntity, MoviesWatchlistAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     inner class ViewHolder(private val binding: ItemWatchlistMoviesBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -44,7 +46,7 @@ class MoviesWatchlistAdapter(
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemMoviesClick(item.id)
+            onItemDataClickListener.onItemMoviesClick(item.id)
         }
     }
 

@@ -14,7 +14,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.common.utils.PositionPageFlow
 import com.raflisalam.fakeneflix.databinding.FragmentNowPlayingBinding
 import com.raflisalam.fakeneflix.presentation.adapter.viewpager.MoviesPosterPagerAdapter
@@ -23,7 +23,7 @@ import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NowPlayingFragment : Fragment(), OnItemClickListener {
+class NowPlayingFragment : Fragment(), OnItemDataClickListener {
 
     private var _binding: FragmentNowPlayingBinding? = null
     private val binding get() = _binding!!

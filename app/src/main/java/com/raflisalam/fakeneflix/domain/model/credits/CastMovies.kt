@@ -1,6 +1,6 @@
 package com.raflisalam.fakeneflix.domain.model.credits
 
-data class Cast(
+data class CastMovies(
     val id: Int,
     val name: String,
     val profilePics: String,

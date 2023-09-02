@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentSearchBinding
 import com.raflisalam.fakeneflix.domain.model.actors.Actors
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.PopularActorsAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.SearchResultAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
@@ -26,7 +26,7 @@ import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), OnItemClickListener {
+class SearchFragment : Fragment(), OnItemDataClickListener {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!

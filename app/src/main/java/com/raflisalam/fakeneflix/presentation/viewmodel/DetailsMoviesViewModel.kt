@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.domain.model.credits.Cast
+import com.raflisalam.fakeneflix.domain.model.credits.CastMovies
 import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.GetDetailsMovieUseCase
@@ -43,19 +43,19 @@ class DetailsMoviesViewModel @Inject constructor(
         }
     }
 
-    private val _getCreditsCastMovie = MutableLiveData<Status<List<Cast>>>()
-    val getCreditsCastMovie: LiveData<Status<List<Cast>>> = _getCreditsCastMovie
+    private val _getCreditsCastMovieMovies = MutableLiveData<Status<List<CastMovies>>>()
+    val getCreditsCastMovieMovies: LiveData<Status<List<CastMovies>>> = _getCreditsCastMovieMovies
     fun fetchCreditsActorMovies() {
         viewModelScope.launch {
-            _getCreditsCastMovie.value = Status.Loading()
+            _getCreditsCastMovieMovies.value = Status.Loading()
             try {
                 moviesIdStateFlow.collectLatest { moviesId ->
                     getCreditsActorMovieUseCase.invoke(moviesId).collect {
-                        _getCreditsCastMovie.value = it
+                        _getCreditsCastMovieMovies.value = it
                     }
                 }
             } catch (e: Exception) {
-                _getCreditsCastMovie.value = Status.Error("Failed to fetch credits actor list")
+                _getCreditsCastMovieMovies.value = Status.Error("Failed to fetch credits actor list")
             }
         }
     }

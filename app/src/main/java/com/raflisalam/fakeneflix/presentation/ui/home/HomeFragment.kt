@@ -11,16 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesTopRatedAdapter
+import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShows
+import com.raflisalam.fakeneflix.presentation.adapter.TvShowsAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.viewpager.ViewPagerAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
+import com.raflisalam.fakeneflix.presentation.viewmodel.ActorsViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
+import com.raflisalam.fakeneflix.presentation.viewmodel.TvShowsViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.blurry.Blurry
@@ -31,15 +35,15 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), OnItemClickListener {
+class HomeFragment : Fragment(), OnItemDataClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MoviesViewModel by viewModels()
-    private lateinit var popularAdapter: MoviesAdapter
-    private lateinit var topRatedAdapter: MoviesTopRatedAdapter
-
+    private val tvShowsViewModel: TvShowsViewModel by viewModels()
+    private lateinit var popularMovies: MoviesAdapter
+    private lateinit var popularTvShows: TvShowsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,13 +80,13 @@ class HomeFragment : Fragment(), OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFetchMoviesPopular()
-        initFetchMoviesTopRated()
+        initFetchMoviesTvShows()
         setDynamicBackground()
     }
 
-    private fun initFetchMoviesTopRated() {
-        viewModel.fetchTopRatedMovies(1)
-        viewModel.getTopRatedMovies.observe(viewLifecycleOwner) {
+    private fun initFetchMoviesTvShows() {
+        tvShowsViewModel.fetchPopularTvShows(1)
+        tvShowsViewModel.getPopularTvShows.observe(viewLifecycleOwner) {
             when (it) {
                 is Status.Error -> {
 
@@ -92,17 +96,17 @@ class HomeFragment : Fragment(), OnItemClickListener {
                 }
                 is Status.Success -> {
                     val data = it.data ?: emptyList()
-                    initRecycleViewTopRatedMovies(data)
+                    initRecycleViewPopularTvShows(data)
                 }
             }
         }
     }
 
-    private fun initRecycleViewTopRatedMovies(data: List<Movies>) {
-        topRatedAdapter = MoviesTopRatedAdapter(data, this)
+    private fun initRecycleViewPopularTvShows(data: List<TvShows>) {
+        popularTvShows = TvShowsAdapter(data)
         binding.apply {
-            rvTopRated.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvTopRated.adapter = topRatedAdapter
+            rvPopularTvShows.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvPopularTvShows.adapter = popularTvShows
         }
     }
 
@@ -125,10 +129,10 @@ class HomeFragment : Fragment(), OnItemClickListener {
     }
 
     private fun initRecycleViewPopularMovies(data: List<Movies>) {
-        popularAdapter = MoviesAdapter(data, this)
+        popularMovies = MoviesAdapter(data, this)
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView.adapter = popularAdapter
+            recyclerView.adapter = popularMovies
         }
     }
 

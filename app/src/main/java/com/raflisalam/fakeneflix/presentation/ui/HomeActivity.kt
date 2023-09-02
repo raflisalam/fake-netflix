@@ -1,8 +1,18 @@
 package com.raflisalam.fakeneflix.presentation.ui
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.renderscript.Allocation
+import android.renderscript.Element
+import android.renderscript.RenderScript
+import android.renderscript.ScriptIntrinsicBlur
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -35,6 +45,29 @@ class HomeActivity : AppCompatActivity() {
                 badge.isVisible = data.isNotEmpty()
                 badge.number = data.size
             }
+        }
+
+        applyBlurOnView(navView, applicationContext)
+    }
+
+    private fun blur(bitmap: Bitmap, applicationContext: Context): Bitmap {
+        val rs = RenderScript.create(applicationContext)
+        val input = Allocation.createFromBitmap(rs, bitmap)
+        val output = Allocation.createTyped(rs, input.type)
+        val script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs))
+        script.setRadius(25f)
+        script.setInput(input)
+        script.forEach(output)
+        output.copyTo(bitmap)
+        return bitmap
+    }
+
+    private fun applyBlurOnView(view: View, context: Context) {
+        view.post {
+            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            view.draw(canvas)
+            view.background = BitmapDrawable(context.resources, blur(bitmap, context))
         }
     }
 

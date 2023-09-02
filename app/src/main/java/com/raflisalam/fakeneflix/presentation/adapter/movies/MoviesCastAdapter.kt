@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.presentation.adapter
+package com.raflisalam.fakeneflix.presentation.adapter.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,17 +7,17 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.databinding.ItemCastMoviesBinding
-import com.raflisalam.fakeneflix.domain.model.credits.Cast
+import com.raflisalam.fakeneflix.domain.model.credits.CastMovies
 
 class MoviesCastAdapter(
-    private var listCast: List<Cast>,
-    private val onItemClickListener: OnItemClickListener
+    private var listCastMovies: List<CastMovies>,
+    private val onItemDataClickListener: OnItemDataClickListener
 ): RecyclerView.Adapter<MoviesCastAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemCastMoviesBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Cast) {
+        fun bind(item: CastMovies) {
             binding.apply {
                 val profileUrl = "${Constant.path_image_base_url}${item.profilePics}"
                 if (item.profilePics.isBlank()) {
@@ -41,14 +41,14 @@ class MoviesCastAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listCast.size
+        return listCastMovies.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = listCast[position]
+        val item = listCastMovies[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemActorsClick(item.id)
+            onItemDataClickListener.onItemActorsClick(item.id)
         }
     }
 }

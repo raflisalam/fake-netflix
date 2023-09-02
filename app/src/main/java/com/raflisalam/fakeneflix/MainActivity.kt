@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.raflisalam.fakeneflix.databinding.ActivityMainBinding
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 
 class MainActivity : AppCompatActivity() {

@@ -1,12 +1,11 @@
 package com.raflisalam.fakeneflix.data.repository
 
-import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseCreditsCastToModel
 import com.raflisalam.fakeneflix.common.getResponseMovieToModel
 import com.raflisalam.fakeneflix.data.remote.model.movies.MovieDetailsDto
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
-import com.raflisalam.fakeneflix.domain.model.credits.Cast
+import com.raflisalam.fakeneflix.domain.model.credits.CastMovies
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import kotlinx.coroutines.flow.Flow
@@ -100,7 +99,6 @@ class MoviesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getDetailsMovieById(movieId: Int): MovieDetailsDto {
-        val movies = apiServices.getDetailsMovieById(movieId)
         return apiServices.getDetailsMovieById(movieId)
     }
 
@@ -123,7 +121,7 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<Cast>>> = flow {
+    override suspend fun getCreditsActorById(movieId: Int): Flow<Status<List<CastMovies>>> = flow {
         try {
             emit(Status.Loading())
             val response = apiServices.getCreditsMovieById(movieId)

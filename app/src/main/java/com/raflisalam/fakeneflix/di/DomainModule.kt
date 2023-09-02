@@ -2,8 +2,11 @@ package com.raflisalam.fakeneflix.di
 
 import com.raflisalam.fakeneflix.domain.repository.ActorsRepository
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
+import com.raflisalam.fakeneflix.domain.repository.TvShowsRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_actors.get_movie_credits_actors.GetMovieCreditsActorsUseCase
+import com.raflisalam.fakeneflix.domain.usecase.get_detail_actors.get_movie_credits_actors.GetMovieCreditsActorsUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_credits_movie.GetCreditsMovieUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_credits_movie.GetCreditsMovieUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_recommendations.GetRecommendationsMoviesUseCase
@@ -22,6 +25,8 @@ import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUs
 import com.raflisalam.fakeneflix.domain.usecase.get_upcoming.GetUpcomingMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_popular.GetPopularTvShowsUseCase
+import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_popular.GetPopularTvShowsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -99,6 +104,20 @@ object DomainModule {
         repository: ActorsRepository
     ): GetPopularActorsUseCase {
         return GetPopularActorsUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetMovieCreditsActorsUseCase(
+        repository: ActorsRepository
+    ): GetMovieCreditsActorsUseCase {
+        return GetMovieCreditsActorsUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetPopularTvShowsUseCase(
+        repository: TvShowsRepository
+    ): GetPopularTvShowsUseCase {
+        return GetPopularTvShowsUseCaseImpl(repository)
     }
 
 }

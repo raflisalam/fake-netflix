@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_head_popular"/>
 
             <TextView
-                android:id="@+id/text_head_top_rated"
+                android:id="@+id/text_head_tvshows"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -68,22 +68,22 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="Movies with the Highest Ratings"
+                android:text="Most Popular Tv Shows"
                 app:layout_constraintTop_toBottomOf="@id/recyclerView"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTopRated"
+                android:id="@+id/rvPopularTvShows"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_head_top_rated" />
+                app:layout_constraintTop_toBottomOf="@+id/text_head_tvshows" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:visibility="invisible"
-                app:layout_constraintTop_toBottomOf="@+id/rvTopRated"
+                app:layout_constraintTop_toBottomOf="@+id/rvPopularTvShows"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

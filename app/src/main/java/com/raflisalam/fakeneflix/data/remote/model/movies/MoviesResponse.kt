@@ -6,6 +6,7 @@ data class MoviesResponse(
 
 data class Results(
     val id: Int?,
+    val genre_ids: List<Int>,
     val overview: String?,
     val release_date: String?,
     val backdrop_path: String?,

@@ -18,15 +18,14 @@ import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
 import com.raflisalam.fakeneflix.data.remote.model.movies.Genre
 import com.raflisalam.fakeneflix.databinding.ActivityDetailsMoviesBinding
 import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
 import com.raflisalam.fakeneflix.domain.model.movies.WatchlistMovies
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesCastAdapter
-import com.raflisalam.fakeneflix.presentation.adapter.MoviesRecommendationsAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesCastAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesRecommendationsAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.actors.DetailActorsActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.DetailsMoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
@@ -35,7 +34,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DetailMoviesActivity : AppCompatActivity(), OnItemClickListener {
+class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
 
     private lateinit var binding: ActivityDetailsMoviesBinding
     private lateinit var actorAdapter: MoviesCastAdapter
@@ -208,7 +207,7 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemClickListener {
 
     private fun fetchActorMovies() {
         viewModel.fetchCreditsActorMovies()
-        viewModel.getCreditsCastMovie.observe(this) {
+        viewModel.getCreditsCastMovieMovies.observe(this) {
             when (it) {
                 is Status.Success -> {
                     val data = it.data

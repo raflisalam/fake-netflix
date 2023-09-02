@@ -1,6 +1,6 @@
 package com.raflisalam.fakeneflix.presentation.ui.watchlist
 
-import MoviesWatchlistAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesWatchlistAdapter
 import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.databinding.FragmentWatchlistBinding
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
@@ -25,7 +25,7 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class WatchlistFragment : Fragment(), OnItemClickListener {
+class WatchlistFragment : Fragment(), OnItemDataClickListener {
 
     private var _binding: FragmentWatchlistBinding? = null
     private val binding get() = _binding!!

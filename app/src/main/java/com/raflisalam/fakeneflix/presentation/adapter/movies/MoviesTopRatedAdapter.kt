@@ -1,4 +1,4 @@
-package com.raflisalam.fakeneflix.presentation.adapter
+package com.raflisalam.fakeneflix.presentation.adapter.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.raflisalam.fakeneflix.common.Constant
-import com.raflisalam.fakeneflix.common.utils.OnItemClickListener
-import com.raflisalam.fakeneflix.databinding.ItemMoviesPopularBinding
+import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
+import com.raflisalam.fakeneflix.databinding.ItemMoviesTopRatedBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 
-class MoviesAdapter(
-    private var listMoviesPopular: List<Movies>,
-    private val onItemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+class MoviesTopRatedAdapter(
+    private var listMoviesTopRated: List<Movies>,
+    private val onItemDataClickListener: OnItemDataClickListener
+): RecyclerView.Adapter<MoviesTopRatedAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: ItemMoviesPopularBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemMoviesTopRatedBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Movies) {
             binding.apply {
                 val posterUrl = "${Constant.path_image_base_url}${item.poster}"
@@ -24,24 +24,27 @@ class MoviesAdapter(
                     .apply(RequestOptions())
                     .into(imagePoster)
                 title.text = item.title
+                val ratingPercentage = (item.rating * 10).toInt()
+                ratingBar.progress = ratingPercentage
+                ratingValues.text = "$ratingPercentage%"
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemMoviesPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMoviesTopRatedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return listMoviesPopular.size
+        return listMoviesTopRated.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = listMoviesPopular[position]
-        holder.bind(item)
+        val movie = listMoviesTopRated[position]
+        holder.bind(movie)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemMoviesClick(item.id)
+            onItemDataClickListener.onItemMoviesClick(movie.id)
         }
     }
 
