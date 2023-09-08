@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/black"
+    tools:context=".presentation.ui.details.tv_shows.DetailTvShowsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_poster"
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/backdrop_path2"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/btn_back"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ToggleButton
+            android:id="@+id/btnWatchlist"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/favorite_toggle"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textOff=""
+            android:textOn=""
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toTopOf="@id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- <Button
+             android:id="@+id/btnWatchTrailer"
+             android:layout_width="wrap_content"
+             android:layout_height="45dp"
+             android:backgroundTint="#E70D0D"
+             android:text="Watch Trailer"
+             android:textSize="14sp"
+             android:layout_marginBottom="5dp"
+             app:icon="@drawable/ic_play"
+             app:layout_constraintBottom_toTopOf="@+id/title_series"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:shapeAppearance="@style/ButtonWatchTrailer" />
+     -->
+        <TextView
+            android:id="@+id/title_series"
+            android:layout_width="0dp"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Transformers: The Rise Of Beasts"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/btn_back"
+            app:layout_constraintTop_toBottomOf="@+id/image_poster" />
+
+
+        <View
+            android:id="@+id/icon_rating"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/ic_rating"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/title_series"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/rating_series"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:text="8.4"
+            android:layout_marginStart="5dp"
+            android:textColor="#757575"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/icon_rating"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <View
+            android:id="@+id/icon_time"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/ic_time"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/rating_series"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <TextView
+            android:id="@+id/time_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="2h 13min"
+            android:layout_marginStart="5dp"
+            android:textColor="#757575"
+            app:layout_constraintTop_toTopOf="@id/icon_time"
+            app:layout_constraintStart_toEndOf="@id/icon_time"
+            app:layout_constraintBottom_toBottomOf="@id/icon_time"/>
+
+        <View
+            android:id="@+id/icon_season"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/ic_season"
+            android:layout_marginStart="10dp"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/time_release"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <TextView
+            android:id="@+id/season"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="4 seasons - 34 episodes"
+            android:layout_marginStart="5dp"
+            android:textColor="#757575"
+            app:layout_constraintTop_toTopOf="@id/icon_season"
+            app:layout_constraintStart_toEndOf="@id/icon_season"
+            app:layout_constraintBottom_toBottomOf="@id/icon_season"/>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/icon_rating"
+            app:layout_constraintStart_toStartOf="@id/icon_rating">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_genre_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:chipSpacingHorizontal="8dp"/>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/text_head_synopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="Overview"
+            android:textColor="@color/white"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/horizontal"
+            app:layout_constraintStart_toStartOf="@id/icon_rating"/>
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:id="@+id/overview_tvshows"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            app:trimMode="trimModeLength"
+            app:trimLength="180"
+            app:colorClickableText="#E70D0D"
+            android:text="When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl... read more "
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@id/text_head_synopsis" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="#C0C0C0"
+            app:tabIndicatorColor="#E70D0D"
+            app:tabMode="scrollable"
+            android:background="#00FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/overview_tvshows"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -109,6 +109,10 @@ class WatchlistFragment : Fragment(), OnItemDataClickListener {
 
     }
 
+    override fun onItemTvShowsClick(id: Int) {
+
+    }
+
     private fun showMovieDetails() {
         startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }

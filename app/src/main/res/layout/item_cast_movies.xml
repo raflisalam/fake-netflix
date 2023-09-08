@@ -8,8 +8,9 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/image_actor"
-        android:layout_width="70dp"
-        android:layout_height="105dp"
+        android:layout_width="105dp"
+        android:layout_height="175dp"
+        android:scaleType="centerCrop"
         app:riv_corner_radius="5dp"
         android:src="@drawable/default_profile"
         app:layout_constraintTop_toTopOf="parent"

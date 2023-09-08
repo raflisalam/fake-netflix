@@ -17,6 +17,9 @@
         android:theme="@style/Theme.FakeNeflix"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.details.tv_shows.DetailTvShowsActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.details.actors.DetailActorsActivity"
             android:exported="false" />
         <activity

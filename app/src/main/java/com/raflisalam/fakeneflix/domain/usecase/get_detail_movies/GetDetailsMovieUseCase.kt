@@ -1,15 +1,14 @@
 package com.raflisalam.fakeneflix.domain.usecase.get_detail_movies
 
-import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.data.remote.model.movies.toMovieDetails
 import com.raflisalam.fakeneflix.domain.model.movies.MovieDetails
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
 import retrofit2.HttpException
+import javax.inject.Inject
 
 
 class GetDetailsMovieUseCase @Inject constructor(

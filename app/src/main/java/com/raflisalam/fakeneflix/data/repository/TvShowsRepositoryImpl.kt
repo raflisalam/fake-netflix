@@ -1,7 +1,9 @@
 package com.raflisalam.fakeneflix.data.repository
 
+import android.util.Log
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.getResponseTvShowsToModel
+import com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail.TvShowsDetailsDto
 import com.raflisalam.fakeneflix.data.remote.services.MoviesApi
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShows
 import com.raflisalam.fakeneflix.domain.repository.TvShowsRepository
@@ -14,7 +16,6 @@ import javax.inject.Inject
 class TvShowsRepositoryImpl @Inject constructor(
     private val apiServices: MoviesApi
 ): TvShowsRepository {
-
 
     override suspend fun getPopularTvShows(page: Int): Flow<Status<List<TvShows>>> = flow {
         try {
@@ -34,5 +35,11 @@ class TvShowsRepositoryImpl @Inject constructor(
         }  catch (e: Exception) {
             emit(Status.Error("An unexpected error occurred"))
         }
+    }
+
+    override suspend fun getDetailTvShowsById(seriesId: Int): TvShowsDetailsDto {
+        val data = apiServices.getDetailTvShowsById(seriesId)
+        Log.d("LOG_REPO", data.toString())
+        return apiServices.getDetailTvShowsById(seriesId)
     }
 }

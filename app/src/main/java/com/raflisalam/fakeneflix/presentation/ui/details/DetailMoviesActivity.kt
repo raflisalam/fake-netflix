@@ -262,6 +262,9 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
         showActorsDetail()
     }
 
+    override fun onItemTvShowsClick(id: Int) {
+    }
+
     private fun showActorsDetail() {
         startActivity(Intent(this, DetailActorsActivity::class.java))
     }

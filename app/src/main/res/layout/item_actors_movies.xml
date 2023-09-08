@@ -11,6 +11,7 @@
         android:layout_width="70dp"
         android:layout_height="105dp"
         app:riv_corner_radius="5dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/default_profile"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

@@ -8,6 +8,8 @@ import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsResponse
 import com.raflisalam.fakeneflix.data.remote.model.actors.MovieCredits
 import com.raflisalam.fakeneflix.data.remote.model.credits.CreditsMovie
 import com.raflisalam.fakeneflix.data.remote.model.tv_shows.TvShowsResponse
+import com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail.TvShowsDetailsDto
+import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShowsDetail
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -83,5 +85,10 @@ interface MoviesApi {
     suspend fun getPopularTvShows(
         @Query("page") position: Int
     ): Response<TvShowsResponse>
+
+    @GET("tv/{series_id}?append_to_response=credits")
+    suspend fun getDetailTvShowsById(
+        @Path("series_id") seriesId: Int
+    ): TvShowsDetailsDto
 
 }

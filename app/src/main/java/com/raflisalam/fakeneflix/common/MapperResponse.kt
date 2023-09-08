@@ -79,7 +79,7 @@ fun getResponseTvShowsToModel(response: TvShowsResponse?): List<TvShows> {
 
     response?.results?.forEach {  data ->
         val tvShows = TvShows(
-            tvShowsId = data.id ?: 0,
+            seriesId = data.id ?: 0,
             titleTvShows = data.name ?: "",
             background_poster = data.backdrop_path ?: "",
             release_date = data.first_air_date ?: "",

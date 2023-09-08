@@ -78,5 +78,9 @@ class MovieCreditsActorsFragment : Fragment(), OnItemDataClickListener {
     override fun onItemActorsClick(id: Int) {
     }
 
+    override fun onItemTvShowsClick(id: Int) {
+
+    }
+
 
 }

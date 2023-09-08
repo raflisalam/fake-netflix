@@ -131,6 +131,10 @@ class UpcomingFragment : Fragment(), OnItemDataClickListener {
     override fun onItemActorsClick(id: Int) {
     }
 
+    override fun onItemTvShowsClick(id: Int) {
+
+    }
+
     private fun showMovieDetails() {
         startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
     }

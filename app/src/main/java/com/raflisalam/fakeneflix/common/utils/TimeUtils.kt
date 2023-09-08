@@ -17,4 +17,12 @@ object TimeUtils {
         val date = inputFormat.parse(inputDate)
         return outputFormat.format(date)
     }
+
+    fun formatDateToYears(inputDate: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("yyyy", Locale.getDefault())
+
+        val year = inputFormat.parse(inputDate)
+        return outputFormat.format(year)
+    }
 }

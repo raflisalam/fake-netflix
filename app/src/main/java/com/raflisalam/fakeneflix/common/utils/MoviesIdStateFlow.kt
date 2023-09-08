@@ -9,7 +9,6 @@ object MoviesIdStateFlow {
 
     private val currentIdMovies = MutableStateFlow(0)
     fun getCurrentIdMovies(): StateFlow<Int> = currentIdMovies
-
     fun onMoviesSelected(moviesId: Int) {
         currentIdMovies.value = moviesId
     }

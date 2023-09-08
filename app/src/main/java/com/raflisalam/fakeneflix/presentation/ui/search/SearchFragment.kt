@@ -167,6 +167,10 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
         showActorsDetail()
     }
 
+    override fun onItemTvShowsClick(id: Int) {
+
+    }
+
     private fun showActorsDetail() {
         startActivity(Intent(requireContext(), DetailActorsActivity::class.java))
     }

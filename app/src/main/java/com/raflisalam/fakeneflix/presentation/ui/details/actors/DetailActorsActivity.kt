@@ -78,10 +78,10 @@ class DetailActorsActivity : AppCompatActivity() {
 
                 }
                 is Status.Success -> {
-                    val data = it.data
-                    if (data != null) {
-                        updateUI(data)
-                    }
+                        val data = it.data
+                        if (data != null) {
+                            updateUI(data)
+                        }
                 }
             }
         }

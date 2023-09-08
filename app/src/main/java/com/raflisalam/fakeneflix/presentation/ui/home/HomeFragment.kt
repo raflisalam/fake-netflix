@@ -12,17 +12,18 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
+import com.raflisalam.fakeneflix.common.utils.OnTvShowsItemClickListener
+import com.raflisalam.fakeneflix.common.utils.SeriesIdStateFlow
 import com.raflisalam.fakeneflix.databinding.FragmentHomeBinding
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShows
-import com.raflisalam.fakeneflix.presentation.adapter.TvShowsAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.tvshows.TvShowsAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesAdapter
-import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesTopRatedAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.viewpager.ViewPagerAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
+import com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.DetailTvShowsActivity
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.NowPlayingFragment
 import com.raflisalam.fakeneflix.presentation.ui.home.viewpager.UpcomingFragment
-import com.raflisalam.fakeneflix.presentation.viewmodel.ActorsViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.TvShowsViewModel
 import com.squareup.picasso.Picasso
@@ -53,8 +54,17 @@ class HomeFragment : Fragment(), OnItemDataClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+        setupButton()
+
         setupTabLayoutAndViewPager()
         return root
+    }
+
+    private fun setupButton() {
+        binding.background.setOnClickListener {
+            startActivity(Intent(context, DetailMoviesActivity::class.java))
+        }
     }
 
     private fun setupTabLayoutAndViewPager() {
@@ -103,7 +113,7 @@ class HomeFragment : Fragment(), OnItemDataClickListener {
     }
 
     private fun initRecycleViewPopularTvShows(data: List<TvShows>) {
-        popularTvShows = TvShowsAdapter(data)
+        popularTvShows = TvShowsAdapter(data, this)
         binding.apply {
             rvPopularTvShows.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvPopularTvShows.adapter = popularTvShows
@@ -170,5 +180,14 @@ class HomeFragment : Fragment(), OnItemDataClickListener {
 
     private fun showMovieDetails() {
         startActivity(Intent(requireContext(), DetailMoviesActivity::class.java))
+    }
+
+    override fun onItemTvShowsClick(id: Int) {
+        SeriesIdStateFlow.onSeriesSelected(id)
+        showSeriesDetail()
+    }
+
+    private fun showSeriesDetail() {
+        startActivity(Intent(requireContext(), DetailTvShowsActivity::class.java))
     }
 }
