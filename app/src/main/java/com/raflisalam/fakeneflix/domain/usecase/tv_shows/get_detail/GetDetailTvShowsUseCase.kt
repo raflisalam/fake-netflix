@@ -18,7 +18,6 @@ class GetDetailTvShowsUseCase @Inject constructor(
         try {
             emit(Status.Loading())
             val series = repository.getDetailTvShowsById(seriesId).toTvShowsDetail()
-            Log.d("LOG_USECASE", series.toString())
             emit(Status.Success(series))
         } catch (e: HttpException) {
             emit(Status.Error(e.localizedMessage ?: "An unexpected error occurred"))

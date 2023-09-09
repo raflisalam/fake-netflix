@@ -7,23 +7,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.SeriesIdStateFlow
-import com.raflisalam.fakeneflix.domain.model.tv_shows.Season
+import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShows
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShowsDetail
 import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_detail.GetDetailTvShowsUseCase
 import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_popular.GetPopularTvShowsUseCase
+import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_recommendations.GetRecommendationsTvShowsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class TvShowsViewModel @Inject constructor(
     private val popular_TvShows: GetPopularTvShowsUseCase,
-    private val detail_TvShows: GetDetailTvShowsUseCase
+    private val detail_TvShows: GetDetailTvShowsUseCase,
+    private val recommendationsTvShows_useCase: GetRecommendationsTvShowsUseCase
 ) : ViewModel() {
 
     private val _getPopularTvShows = MutableLiveData<Status<List<TvShows>>>()
@@ -53,12 +52,28 @@ class TvShowsViewModel @Inject constructor(
             try {
                 seriesIdStateFlow.collectLatest { seriesId ->
                     detail_TvShows.invoke(seriesId).collect {
-                        Log.d("LOG_VIEWMODEL", it.data.toString())
                         _getSeriesDetail.value = it
                     }
                 }
             } catch (e: Exception) {
                 _getSeriesDetail.value = Status.Error("Failed to fetch now playing movie list")
+            }
+        }
+    }
+
+    private val _getRecommendationsTvShows = MutableLiveData<Status<List<TvShows>>>()
+    val getRecommendationsTvShows: LiveData<Status<List<TvShows>>> get() = _getRecommendationsTvShows
+    fun fetchRecommendationsTvShows() {
+        viewModelScope.launch {
+            _getRecommendationsTvShows.value = Status.Loading()
+            try {
+                seriesIdStateFlow.collectLatest { seriesId ->
+                    recommendationsTvShows_useCase.invoke(seriesId, 1).collect {
+                        _getRecommendationsTvShows.value = it
+                    }
+                }
+            } catch (e: Exception) {
+                _getRecommendationsTvShows.value = Status.Error("Failed to fetch now playing movie list")
             }
         }
     }

@@ -7,6 +7,7 @@ import com.raflisalam.fakeneflix.data.remote.model.movies.MoviesResponse
 import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsResponse
 import com.raflisalam.fakeneflix.data.remote.model.actors.MovieCredits
 import com.raflisalam.fakeneflix.data.remote.model.credits.CreditsMovie
+import com.raflisalam.fakeneflix.data.remote.model.search.SearchResponse
 import com.raflisalam.fakeneflix.data.remote.model.tv_shows.TvShowsResponse
 import com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail.TvShowsDetailsDto
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShowsDetail
@@ -91,4 +92,15 @@ interface MoviesApi {
         @Path("series_id") seriesId: Int
     ): TvShowsDetailsDto
 
+    @GET("tv/{series_id}/recommendations")
+    suspend fun getRecommendationsTvShows(
+        @Path("series_id") moviesId: Int,
+        @Query("page") page: Int
+    ): Response<TvShowsResponse>
+
+    //search
+    @GET("search/multi")
+    suspend fun searchByName(
+        @Query("query") query: String
+    ): Response<SearchResponse>
 }

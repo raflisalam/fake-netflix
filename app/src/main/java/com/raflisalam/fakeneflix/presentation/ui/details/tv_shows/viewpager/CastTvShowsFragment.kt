@@ -1,43 +1,40 @@
 package com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.viewpager
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.databinding.FragmentCastTvshowsBinding
-import com.raflisalam.fakeneflix.databinding.FragmentDirectedByBinding
 import com.raflisalam.fakeneflix.presentation.adapter.tvshows.BaseTvShowAdapter
 import com.raflisalam.fakeneflix.presentation.viewmodel.TvShowsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DirectedByFragment : Fragment() {
+class CastTvShowsFragment : Fragment() {
 
-    private var _binding: FragmentDirectedByBinding? = null
+    private var _binding: FragmentCastTvshowsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter: BaseTvShowAdapter
     private val viewModel: TvShowsViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDirectedByBinding.inflate(inflater, container, false)
+    ): View? {
+        _binding = FragmentCastTvshowsBinding.inflate(inflater, container, false)
 
-        fetchDirectedBy()
+
+        fetchCastTvShows()
 
         return binding.root
     }
 
-    private fun fetchDirectedBy() {
+    private fun fetchCastTvShows() {
         viewModel.fetchSeriesDetail()
         viewModel.seriesDetail.observe(viewLifecycleOwner) {
             when (it) {
@@ -48,13 +45,12 @@ class DirectedByFragment : Fragment() {
 
                 }
                 is Status.Success -> {
-                    val tvShowDetail = it.data
-                    val directed = tvShowDetail?.createdBy
-                    Log.d("DIRECTED", directed.toString())
-                    if (directed != null) {
-                        adapter = BaseTvShowAdapter(directed)
+                    val tvShowDetail = it.data?.credits
+                    val castList = tvShowDetail?.cast
+                    if (castList != null) {
+                        adapter = BaseTvShowAdapter(castList)
                         activity?.runOnUiThread {
-                            showDirectedBy()
+                            showCastTvShows()
                         }
                     }
                 }
@@ -62,7 +58,7 @@ class DirectedByFragment : Fragment() {
         }
     }
 
-    private fun showDirectedBy() {
+    private fun showCastTvShows() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = adapter
@@ -74,5 +70,4 @@ class DirectedByFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

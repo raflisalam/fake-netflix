@@ -5,6 +5,10 @@ import com.raflisalam.fakeneflix.common.enums.TvShowsGenresList
 
 object Convert {
 
+    fun roundDouble(double: Double): Double {
+        return Math.round(double * 10.0) / 10.0
+    }
+
     fun toGenders(int: Int): String {
         var gender = ""
         if (int == 1) {

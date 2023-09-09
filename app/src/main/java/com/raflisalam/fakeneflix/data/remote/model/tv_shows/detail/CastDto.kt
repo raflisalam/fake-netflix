@@ -1,6 +1,8 @@
 package com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail
 
-data class Cast(
+import com.raflisalam.fakeneflix.domain.model.credits.CastTvShow
+
+data class CastDto(
     val adult: Boolean,
     val id: Int,
     val character: String?,
@@ -13,3 +15,12 @@ data class Cast(
     val popularity: Double,
     val profile_path: String?
 )
+
+fun CastDto.toCastTvShow(): CastTvShow {
+    return CastTvShow(
+        id = id,
+        name = name,
+        profilePics = profile_path,
+        nameCharacter = character
+    )
+}

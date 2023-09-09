@@ -15,5 +15,4 @@
         tools:listitem="@layout/item_season_tvshows"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

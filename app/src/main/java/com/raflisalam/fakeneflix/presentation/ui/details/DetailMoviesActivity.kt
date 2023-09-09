@@ -8,6 +8,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -142,7 +143,10 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
                 releaseDate.text = TimeUtils.formatDate(data.release_date)
                 production.text = data.productionCountry[0].name
                 tagline.text = data.tagline
-                setGenreMoviesInChipGroup(data.genres)
+                data.genres.forEach {
+                    binding.genre.text = it.name
+                    chipGenreMovies.addView(createChipGenre(it.name))
+                }
                 fetchActorMovies()
                 fetchRecommendationsMovies()
                 checkMoviesIsWatchlist(data)
@@ -150,6 +154,15 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
             }
         }
 
+    }
+
+    private fun createChipGenre(name: String): Chip {
+        val chip  = layoutInflater.inflate(R.layout.item_chip_genre, binding.chipGenreMovies, false) as Chip
+        with(chip) {
+            text = name
+            isCheckedIconVisible = false
+        }
+        return chip
     }
 
     private fun checkMoviesIsWatchlist(data: MovieDetails) {
@@ -226,23 +239,6 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
         binding.apply {
             rvActor.layoutManager = LinearLayoutManager(this@DetailMoviesActivity, LinearLayoutManager.HORIZONTAL, false)
             rvActor.adapter = actorAdapter
-        }
-    }
-
-    private fun setGenreMoviesInChipGroup(genres: List<Genre>?) {
-        if (genres != null) {
-            for (genre in genres) {
-                binding.genre.text = genre.name
-                val chip = Chip(this)
-                chip.text = genre.name
-                chip.textColors
-                chip.setPadding(5)
-                chip.isCheckedIconVisible = false
-                chip.textSize = 12f
-                chip.setChipBackgroundColorResource(R.color.chip_background)
-                chip.setTextColor(resources.getColor(R.color.chip_text, null))
-                binding.chipGenreMovies.addView(chip)
-            }
         }
     }
 

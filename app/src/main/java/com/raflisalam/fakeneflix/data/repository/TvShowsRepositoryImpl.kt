@@ -39,7 +39,29 @@ class TvShowsRepositoryImpl @Inject constructor(
 
     override suspend fun getDetailTvShowsById(seriesId: Int): TvShowsDetailsDto {
         val data = apiServices.getDetailTvShowsById(seriesId)
-        Log.d("LOG_REPO", data.toString())
         return apiServices.getDetailTvShowsById(seriesId)
+    }
+
+    override suspend fun getRecommendationsTvShows(
+        seriesId: Int,
+        page: Int
+    ): Flow<Status<List<TvShows>>> = flow {
+        try {
+            emit(Status.Loading())
+            val response = apiServices.getRecommendationsTvShows(seriesId, page)
+            if (response.isSuccessful) {
+                val tvShows = response.body()
+                val listTvShows = getResponseTvShowsToModel(tvShows)
+                emit(Status.Success(listTvShows))
+            } else {
+                emit(Status.Error("API request failed with code ${response.code()}"))
+            }
+        } catch (e: HttpException) {
+            emit(Status.Error(e.localizedMessage ?: "An unexpected error occured"))
+        } catch (e: IOException) {
+            emit(Status.Error("Couldn't reach server. Check your internet connection"))
+        }  catch (e: Exception) {
+            emit(Status.Error("An unexpected error occurred"))
+        }
     }
 }

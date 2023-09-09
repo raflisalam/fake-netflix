@@ -1,11 +1,12 @@
 package com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail
 
+import com.raflisalam.fakeneflix.domain.model.credits.CreditsTvShow
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShowsDetail
 
 data class TvShowsDetailsDto(
     val adult: Boolean,
     val backdrop_path: String,
-    val created_by: List<CreatedBy>? = null,
+    val created_by: List<CreatedByDto>? = null,
     val episode_run_time: List<Any>,
     val first_air_date: String,
     val genres: List<Genre>,
@@ -39,6 +40,8 @@ data class TvShowsDetailsDto(
 )
 
 fun TvShowsDetailsDto.toTvShowsDetail(): TvShowsDetail {
+    val castList = credits.cast.map { it.toCastTvShow() }
+    val created = created_by?.map { it.toCreatedBy() }
     val season = seasons.map { it.toSeason() }
     return TvShowsDetail(
         seriesId = id,
@@ -51,9 +54,13 @@ fun TvShowsDetailsDto.toTvShowsDetail(): TvShowsDetail {
         rating = vote_average,
         original_name = original_name,
         tagline = tagline,
-        credits = credits,
+        credits = CreditsTvShow(
+            cast = castList
+        ),
         number_of_episodes = number_of_episodes,
         number_of_seasons = number_of_seasons,
-        seasons = season
+        seasons = season,
+        createdBy = created,
+        production_countries = production_countries
     )
 }

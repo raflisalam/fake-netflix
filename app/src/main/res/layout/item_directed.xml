@@ -7,9 +7,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/image_actor"
-        android:layout_width="70dp"
-        android:layout_height="105dp"
+        android:id="@+id/image_directed"
+        android:layout_width="115dp"
+        android:layout_height="175dp"
         app:riv_corner_radius="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_profile"
@@ -17,29 +17,32 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/name_actor"
+        android:id="@+id/name_directed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="9sp"
+        android:textSize="12sp"
         android:textAlignment="center"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/image_actor"
-        app:layout_constraintStart_toStartOf="@id/image_actor"
-        app:layout_constraintEnd_toEndOf="@id/image_actor"/>
+        app:layout_constraintTop_toBottomOf="@+id/image_directed"
+        app:layout_constraintStart_toStartOf="@id/image_directed"
+        app:layout_constraintEnd_toEndOf="@id/image_directed"/>
+
 
     <TextView
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="9sp"
+        android:textSize="12sp"
         android:textAlignment="center"
         android:textStyle="bold"
+        android:visibility="invisible"
+        android:text="teeee"
         android:layout_marginTop="5dp"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/name_actor"
-        app:layout_constraintStart_toStartOf="@id/name_actor"
-        app:layout_constraintEnd_toEndOf="@id/name_actor"/>
+        app:layout_constraintTop_toBottomOf="@+id/name_directed"
+        app:layout_constraintStart_toStartOf="@id/name_directed"
+        app:layout_constraintEnd_toEndOf="@id/name_directed"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

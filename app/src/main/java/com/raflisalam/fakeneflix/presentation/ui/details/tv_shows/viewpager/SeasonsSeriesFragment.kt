@@ -47,9 +47,7 @@ class SeasonsSeriesFragment : Fragment() {
                 }
                 is Status.Success -> {
                     val tvShowDetail = it.data
-                    Log.d("DATA1", tvShowDetail.toString())
                     val season = tvShowDetail?.seasons
-                    Log.d("DATA2", season.toString())
                     if (season != null) {
                         adapter = SeasonSeriesAdapter(season)
                         activity?.runOnUiThread {

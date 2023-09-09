@@ -17,8 +17,9 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/image_poster"
-            android:layout_width="105dp"
-            android:layout_height="150dp"
+            android:layout_width="80dp"
+            android:layout_height="115dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/poster_path4"
             app:riv_corner_radius="5dp"
             android:layout_marginTop="15dp"
@@ -30,25 +31,27 @@
 
         <TextView
             android:id="@+id/title_movies"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:text="Transformer: Rise of the Beast"
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
+            android:text="Transformer: Rise of the Beast"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image_poster"
-            app:layout_constraintTop_toTopOf="@id/image_poster"/>
+            app:layout_constraintTop_toTopOf="@id/image_poster" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_genre"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:backgroundTint="#33C0C0C0"
             android:text="Animation"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:chipCornerRadius="15dp"
             app:chipStrokeColor="#66000000"
             app:layout_constraintStart_toStartOf="@+id/title_movies"
@@ -56,10 +59,9 @@
 
         <View
             android:id="@+id/icon_rating"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:background="@drawable/ic_rating"
-
             app:layout_constraintStart_toStartOf="@+id/chip_genre"
             app:layout_constraintTop_toBottomOf="@+id/chip_genre" />
 
@@ -67,7 +69,7 @@
             android:id="@+id/rating_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_marginStart="5dp"
             android:textColor="@color/white"
@@ -79,28 +81,12 @@
             android:id="@+id/release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text=""
+            android:textSize="12sp"
             android:layout_marginStart="5dp"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@id/rating_movies"
             app:layout_constraintStart_toEndOf="@id/rating_movies"
             app:layout_constraintBottom_toBottomOf="@id/rating_movies"/>
-
-        <com.borjabravo.readmoretextview.ReadMoreTextView
-            android:id="@+id/synopsis_movies"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:trimLength="100"
-            app:trimMode="trimModeLength"
-            android:textColor="@color/white"
-            app:colorClickableText="#FFA800"
-            android:textSize="10sp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/image_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/chip_genre"
-            app:layout_constraintTop_toBottomOf="@+id/icon_rating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

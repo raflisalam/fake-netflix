@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.details.tv_shows.viewpager.DirectedByFragment">
+    tools:context=".presentation.ui.details.tv_shows.viewpager.CastTvShowsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

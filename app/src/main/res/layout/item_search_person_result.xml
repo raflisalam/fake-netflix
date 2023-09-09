@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/card_item_background"
+    app:strokeColor="@color/color_stroke_cardView_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/profile_pictures"
+            android:layout_width="70dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poster_path4"
+            app:riv_corner_radius="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/name_actor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_poster"
+            app:layout_constraintTop_toTopOf="@id/image_poster"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:backgroundTint="#33C0C0C0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:chipCornerRadius="15dp"
+            app:chipStrokeColor="#66000000"
+            app:layout_constraintStart_toStartOf="@+id/name_actor"
+            app:layout_constraintTop_toBottomOf="@+id/name_actor" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_career"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="#33C0C0C0"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:chipCornerRadius="15dp"
+            app:chipStrokeColor="#66000000"
+            app:layout_constraintBottom_toBottomOf="@+id/chip_gender"
+            app:layout_constraintStart_toEndOf="@+id/chip_gender"
+            app:layout_constraintTop_toTopOf="@+id/chip_gender" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

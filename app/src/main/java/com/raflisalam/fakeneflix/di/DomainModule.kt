@@ -27,6 +27,8 @@ import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCase
 import com.raflisalam.fakeneflix.domain.usecase.search.SearchMoviesUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_popular.GetPopularTvShowsUseCase
 import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_popular.GetPopularTvShowsUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_recommendations.GetRecommendationsTvShowsUseCase
+import com.raflisalam.fakeneflix.domain.usecase.tv_shows.get_recommendations.GetRecommendationsTvShowsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -118,6 +120,13 @@ object DomainModule {
         repository: TvShowsRepository
     ): GetPopularTvShowsUseCase {
         return GetPopularTvShowsUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetRecommendationsTvShowsUseCase(
+        repository: TvShowsRepository
+    ): GetRecommendationsTvShowsUseCase {
+        return GetRecommendationsTvShowsUseCaseImpl(repository)
     }
 
 }

@@ -118,8 +118,8 @@
 
         <View
             android:id="@+id/icon_season"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
             android:background="@drawable/ic_season"
             android:layout_marginStart="10dp"
             app:layout_constraintTop_toTopOf="@id/icon_rating"
@@ -201,6 +201,182 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_about_film"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:background="#0A0A0A"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager">
+
+            <TextView
+                android:id="@+id/text_head_about_tvshows"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:text="About TV Shows"
+                android:textColor="#9D9D9D"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_original_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
+                android:text="Original Title :"
+                android:textColor="#686868"
+                app:layout_constraintTop_toBottomOf="@id/text_head_about_tvshows"
+                app:layout_constraintStart_toStartOf="@id/text_head_about_tvshows"/>
+
+            <TextView
+                android:id="@+id/original_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginEnd="15dp"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/genre"
+                app:layout_constraintTop_toTopOf="@id/text_original_title" />
+
+            <TextView
+                android:id="@+id/text_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@id/text_original_title"
+                app:layout_constraintTop_toBottomOf="@+id/original_title" />
+
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:layout_marginEnd="15dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/production"
+                app:layout_constraintTop_toTopOf="@id/text_genre" />
+
+            <TextView
+                android:id="@+id/text_production"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Production :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/text_genre"
+                app:layout_constraintTop_toBottomOf="@+id/genre" />
+
+            <TextView
+                android:id="@+id/production"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:layout_marginEnd="15dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/release_date"
+                app:layout_constraintTop_toTopOf="@id/text_production" />
+
+            <TextView
+                android:id="@+id/text_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Release Date :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/text_production"
+                app:layout_constraintTop_toBottomOf="@+id/production" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="15dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_release_date"
+                app:layout_constraintTop_toTopOf="@id/text_release_date" />
+
+            <TextView
+                android:id="@+id/text_tagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tagline :"
+                android:textColor="#686868"
+                android:textSize="10sp"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@id/text_release_date"
+                app:layout_constraintTop_toBottomOf="@+id/release_date" />
+
+            <TextView
+                android:id="@+id/tagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:layout_marginEnd="15dp"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/release_date"
+                app:layout_constraintTop_toTopOf="@id/text_tagline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_head_recommendations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:text="Movie Suggestions"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/layout_about_film"
+            app:layout_constraintStart_toStartOf="@id/overview_tvshows"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecommendations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_head_recommendations" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

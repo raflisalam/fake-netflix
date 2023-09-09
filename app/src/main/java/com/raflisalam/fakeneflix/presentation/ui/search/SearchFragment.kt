@@ -13,16 +13,19 @@ import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.MoviesIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
+import com.raflisalam.fakeneflix.common.utils.SeriesIdStateFlow
 import com.raflisalam.fakeneflix.databinding.FragmentSearchBinding
 import com.raflisalam.fakeneflix.domain.model.actors.Actors
 import com.raflisalam.fakeneflix.domain.model.movies.Movies
 import com.raflisalam.fakeneflix.presentation.adapter.movies.MoviesAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.PopularActorsAdapter
-import com.raflisalam.fakeneflix.presentation.adapter.SearchResultAdapter
+import com.raflisalam.fakeneflix.presentation.adapter.search.SearchResultAdapter
 import com.raflisalam.fakeneflix.presentation.ui.details.DetailMoviesActivity
 import com.raflisalam.fakeneflix.presentation.ui.details.actors.DetailActorsActivity
+import com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.DetailTvShowsActivity
 import com.raflisalam.fakeneflix.presentation.viewmodel.ActorsViewModel
 import com.raflisalam.fakeneflix.presentation.viewmodel.MoviesViewModel
+import com.raflisalam.fakeneflix.presentation.viewmodel.SearchResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +36,7 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
 
     private val moviesViewModel: MoviesViewModel by viewModels()
     private val actorsViewModel: ActorsViewModel by viewModels()
+    private val searchViewModel: SearchResultViewModel by viewModels()
 
     private lateinit var searchAdapter: SearchResultAdapter
     private lateinit var trendingMoviesAdapter: MoviesAdapter
@@ -131,19 +135,13 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
     }
 
     private fun fetchSearchResult(query: String) {
-        moviesViewModel.searchMoviesByName(query)
-        moviesViewModel.getMoviesByName.observe(viewLifecycleOwner) {
-            when (it) {
-                is Status.Success -> {
-                    val data = it.data ?: emptyList()
-                    showSearchResult(data)
-                }
-                else -> {}
-            }
+        searchViewModel.fetchSearchResult(query)
+        searchViewModel.results.observe(viewLifecycleOwner) {
+            showSearchResult(it)
         }
     }
 
-    private fun showSearchResult(data: List<Movies>) {
+    private fun showSearchResult(data: List<Any>) {
         searchAdapter = SearchResultAdapter(data, this)
         searchAdapter.updateData(data)
         binding.apply {
@@ -168,7 +166,12 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
     }
 
     override fun onItemTvShowsClick(id: Int) {
+        SeriesIdStateFlow.onSeriesSelected(id)
+        showTvShowsDetail()
+    }
 
+    private fun showTvShowsDetail() {
+        startActivity(Intent(requireContext(), DetailTvShowsActivity::class.java))
     }
 
     private fun showActorsDetail() {

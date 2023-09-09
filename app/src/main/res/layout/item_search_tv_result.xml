@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/card_item_background"
+    app:strokeColor="@color/color_stroke_cardView_item"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_poster"
+            android:layout_width="80dp"
+            android:layout_height="115dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/poster_path4"
+            app:riv_corner_radius="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/title_movies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="Transformer: Rise of the Beast"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_poster"
+            app:layout_constraintTop_toTopOf="@id/image_poster" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:backgroundTint="#33C0C0C0"
+            android:text="Animation"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:chipCornerRadius="15dp"
+            app:chipStrokeColor="#66000000"
+            app:layout_constraintStart_toStartOf="@+id/title_movies"
+            app:layout_constraintTop_toBottomOf="@+id/title_movies" />
+
+        <View
+            android:id="@+id/icon_rating"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_rating"
+            app:layout_constraintStart_toStartOf="@+id/chip_genre"
+            app:layout_constraintTop_toBottomOf="@+id/chip_genre" />
+
+        <TextView
+            android:id="@+id/rating_movies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/icon_rating"
+            app:layout_constraintStart_toEndOf="@id/icon_rating"
+            app:layout_constraintBottom_toBottomOf="@id/icon_rating"/>
+
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/rating_movies"
+            app:layout_constraintStart_toEndOf="@id/rating_movies"
+            app:layout_constraintBottom_toBottomOf="@id/rating_movies"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
