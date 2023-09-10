@@ -35,12 +35,10 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
     private val binding get() = _binding!!
 
     private val moviesViewModel: MoviesViewModel by viewModels()
-    private val actorsViewModel: ActorsViewModel by viewModels()
     private val searchViewModel: SearchResultViewModel by viewModels()
 
     private lateinit var searchAdapter: SearchResultAdapter
     private lateinit var trendingMoviesAdapter: MoviesAdapter
-    private lateinit var popularActorsAdapter: PopularActorsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +55,6 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchTrendingMovies()
-        fetchPopularActors()
     }
 
     private fun searchMovies() {
@@ -74,13 +71,10 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
                     if (newText?.isEmpty() == true) {
                         binding.textHeadTrending.visibility = View.VISIBLE
                         binding.textHeadPopularActors.visibility = View.VISIBLE
-                        binding.rvPopularActors.visibility = View.VISIBLE
                         fetchTrendingMovies()
-                        fetchPopularActors()
                     } else {
                         binding.textHeadTrending.visibility = View.GONE
                         binding.textHeadPopularActors.visibility = View.GONE
-                        binding.rvPopularActors.visibility = View.GONE
                         if (newText != null) {
                             fetchSearchResult(newText)
                         }
@@ -91,27 +85,9 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
         }
     }
 
-    private fun fetchPopularActors() {
-        actorsViewModel.fetchActorsPopular()
-        actorsViewModel.getActorsPopular.observe(viewLifecycleOwner) {
-            when (it) {
-                is Status.Success -> {
-                    val data = it.data ?: emptyList()
-                    showPopularActors(data)
-                }
-                else -> {}
-            }
-        }
-    }
 
-    private fun showPopularActors(data: List<Actors>) {
-        popularActorsAdapter = PopularActorsAdapter(data, this)
-        binding.apply {
-            rvPopularActors.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            rvPopularActors.adapter = popularActorsAdapter
-        }
 
-    }
+
 
     private fun fetchTrendingMovies() {
         moviesViewModel.fetchTrendingMovies()

@@ -7,4 +7,34 @@
     <string name="title_profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="chip_action">Action</string>
+    <string name="chip_action_adventure">Action &amp; Adventure</string>
+    <string name="chip_adventure">Adventure</string>
+    <string name="chip_animation">Animation</string>
+    <string name="chip_comedy">Comedy</string>
+    <string name="chip_crime">Crime</string>
+    <string name="chip_documentary">Documentary</string>
+    <string name="chip_drama">Drama</string>
+    <string name="chip_family">Family</string>
+    <string name="chip_fantasy">Fantasy</string>
+    <string name="chip_history">History</string>
+    <string name="chip_horror">Horror</string>
+    <string name="chip_kids">Kids</string>
+    <string name="chip_music">Music</string>
+    <string name="chip_mystery">Mystery</string>
+    <string name="chip_news">News</string>
+    <string name="chip_reality">Reality</string>
+    <string name="chip_romance">Romance</string>
+    <string name="chip_science_fiction">Science Fiction</string>
+    <string name="chip_scifi_fantasy">Sci-Fi &amp; Fantasy</string>
+    <string name="chip_soap">Soap</string>
+    <string name="chip_talk">Talk</string>
+    <string name="chip_tv_movie">TV Movie</string>
+    <string name="chip_thriller">Thriller</string>
+    <string name="chip_war">War</string>
+    <string name="chip_war_politics">War &amp; Politics</string>
+    <string name="chip_western">Western</string>
+
 </resources>
