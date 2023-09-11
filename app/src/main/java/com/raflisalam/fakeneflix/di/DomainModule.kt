@@ -1,10 +1,13 @@
 package com.raflisalam.fakeneflix.di
 
 import com.raflisalam.fakeneflix.domain.repository.ActorsRepository
+import com.raflisalam.fakeneflix.domain.repository.DiscoverRepository
 import com.raflisalam.fakeneflix.domain.repository.MoviesRepository
 import com.raflisalam.fakeneflix.domain.repository.TvShowsRepository
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCase
 import com.raflisalam.fakeneflix.domain.usecase.background.ChangeBackgroundLayoutUseCaseImpl
+import com.raflisalam.fakeneflix.domain.usecase.discover.GetDiscoverUseCase
+import com.raflisalam.fakeneflix.domain.usecase.discover.GetDiscoverUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_actors.get_movie_credits_actors.GetMovieCreditsActorsUseCase
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_actors.get_movie_credits_actors.GetMovieCreditsActorsUseCaseImpl
 import com.raflisalam.fakeneflix.domain.usecase.get_detail_movies.get_credits_movie.GetCreditsMovieUseCase
@@ -127,6 +130,13 @@ object DomainModule {
         repository: TvShowsRepository
     ): GetRecommendationsTvShowsUseCase {
         return GetRecommendationsTvShowsUseCaseImpl(repository)
+    }
+
+    @Provides
+    fun provideGetDiscoverUseCase(
+        repository: DiscoverRepository
+    ): GetDiscoverUseCase {
+        return GetDiscoverUseCaseImpl(repository)
     }
 
 }

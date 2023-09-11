@@ -12,7 +12,6 @@ import com.raflisalam.fakeneflix.databinding.ItemSearchMovieResultBinding
 import com.raflisalam.fakeneflix.domain.model.search.MovieResult
 
 class MoviesSearchResultViewHolder(val binding: ItemSearchMovieResultBinding): RecyclerView.ViewHolder(binding.root) {
-
     fun bind(item: MovieResult) {
         binding.apply {
             val posterUrl = "${Constant.path_image_base_url}${item.poster_path}"

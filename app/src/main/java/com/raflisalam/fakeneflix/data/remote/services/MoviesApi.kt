@@ -7,6 +7,8 @@ import com.raflisalam.fakeneflix.data.remote.model.movies.MoviesResponse
 import com.raflisalam.fakeneflix.data.remote.model.actors.ActorsResponse
 import com.raflisalam.fakeneflix.data.remote.model.actors.MovieCredits
 import com.raflisalam.fakeneflix.data.remote.model.credits.CreditsMovie
+import com.raflisalam.fakeneflix.data.remote.model.discover.DiscoverMovieResponse
+import com.raflisalam.fakeneflix.data.remote.model.discover.DiscoverTvShowResponse
 import com.raflisalam.fakeneflix.data.remote.model.search.SearchResponse
 import com.raflisalam.fakeneflix.data.remote.model.tv_shows.TvShowsResponse
 import com.raflisalam.fakeneflix.data.remote.model.tv_shows.detail.TvShowsDetailsDto
@@ -103,4 +105,14 @@ interface MoviesApi {
     suspend fun searchByName(
         @Query("query") query: String
     ): Response<SearchResponse>
+
+    @GET("discover/movie")
+    suspend fun discoverMoviesByGenre(
+        @Query("with_genres") genresId: ArrayList<String>
+    ): Response<DiscoverMovieResponse>
+
+    @GET("discover/tv")
+    suspend fun discoverTvShowsByGenre(
+        @Query("with_genres") genresId: ArrayList<String>
+    ): Response<DiscoverTvShowResponse>
 }

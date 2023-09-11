@@ -1,468 +1,488 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/black"
     tools:context=".presentation.ui.search.SearchFragment">
-    
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        app:iconifiedByDefault="true"
-        app:searchIcon="@drawable/ic_search"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        app:queryHint="Movies, TV Shows and other"
-        android:theme="@style/CustomSearchViewTheme"
-        app:defaultQueryHint="Movies, TV Shows and other"
-        android:background="@drawable/bg_search_view"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_head_trending"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Trending"
-        android:textColor="@color/white"
-        android:layout_marginTop="10dp"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/search_view"
-        app:layout_constraintTop_toBottomOf="@+id/search_view" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            app:iconifiedByDefault="true"
+            app:searchIcon="@drawable/ic_search"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:queryHint="Movies, TV Shows and other"
+            android:theme="@style/CustomSearchViewTheme"
+            app:defaultQueryHint="Movies, TV Shows and other"
+            android:background="@drawable/bg_search_view"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/text_head_trending" />
-
-    <TextView
-        android:id="@+id/text_head_categories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Categories"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/text_head_trending"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:scrollbars="none"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_head_categories">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_genre_1"
+        <TextView
+            android:id="@+id/text_head_trending"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            app:chipSpacingHorizontal="8dp"
-            app:singleLine="true">
+            android:layout_height="wrap_content"
+            android:text="Trending"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/search_view"
+            app:layout_constraintTop_toBottomOf="@+id/search_view" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_action"
-                android:checked="true"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_head_trending" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_action_adventure"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_adventure"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip4"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_animation"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip5"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_comedy"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip6"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_crime"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip7"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_documentary"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip8"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_drama"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip9"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_family"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-        </com.google.android.material.chip.ChipGroup>
-
-    </HorizontalScrollView>
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal1">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_genre_2"
+        <TextView
+            android:id="@+id/text_head_categories"
             android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            app:chipSpacingHorizontal="8dp"
-            app:singleLine="true">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Categories"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/text_head_trending"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip10"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+        <HorizontalScrollView
+            android:id="@+id/horizontal1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:scrollbars="none"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/text_head_categories">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_genre_1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_fantasy"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                android:layout_height="45dp"
+                style="@style/Widget.MaterialComponents.ChipGroup"
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip11"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip1"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_action"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_action_adventure"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip3"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_adventure"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip4"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_animation"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip5"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_comedy"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip6"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_crime"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip7"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_documentary"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip8"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_drama"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip9"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_family"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal1">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_genre_2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_history"
-                android:textColor="@color/chip_text"
-                android:checked="true"
-                android:textSize="12sp"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                android:layout_height="45dp"
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip12"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip10"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_fantasy"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip11"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_history"
+                    android:textColor="@color/chip_text"
+                    android:checked="false"
+                    android:textSize="12sp"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip12"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_horror"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip13"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_kids"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip14"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_music"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip15"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_mystery"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip16"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_news"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip17"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_reality"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip18"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_romance"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal2">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_genre_3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_horror"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                android:layout_height="45dp"
+                app:chipSpacingHorizontal="8dp"
+                app:singleLine="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip13"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_kids"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip19"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_science_fiction"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip14"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_music"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip20"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_scifi_fantasy"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip15"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_mystery"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip21"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_soap"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip16"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_news"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip22"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_talk"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip17"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_reality"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip23"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_tv_movie"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip18"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_romance"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip24"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_thriller"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-    </HorizontalScrollView>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip25"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_war"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontal3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal2">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip26"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_war_politics"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_genre_3"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            app:chipSpacingHorizontal="8dp"
-            app:singleLine="true">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip27"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip_western"
+                    android:textColor="@color/chip_text"
+                    android:textSize="12sp"
+                    android:checked="false"
+                    app:checkedIconVisible="false"
+                    app:chipBackgroundColor="@color/chip_inactive"
+                    app:chipIconVisible="true" />
+            </com.google.android.material.chip.ChipGroup>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip19"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_science_fiction"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+        </HorizontalScrollView>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip20"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_scifi_fantasy"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDiscover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/horizontal3"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip21"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_soap"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@+id/rvDiscover"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip22"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_talk"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip23"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_tv_movie"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip24"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_thriller"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip25"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_war"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip26"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_war_politics"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip27"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/chip_western"
-                android:textColor="@color/chip_text"
-                android:textSize="12sp"
-                android:checked="true"
-                app:checkedIconVisible="false"
-                app:chipBackgroundColor="@color/chip_inactive"
-                app:chipIconVisible="true" />
-        </com.google.android.material.chip.ChipGroup>
-
-    </HorizontalScrollView>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
