@@ -1,13 +1,11 @@
 package com.raflisalam.fakeneflix.domain.usecase.discover
 
-import com.raflisalam.fakeneflix.common.Status
 import com.raflisalam.fakeneflix.common.enums.MediaType
 import com.raflisalam.fakeneflix.data.remote.model.discover.DiscoverMovieNetwork
 import com.raflisalam.fakeneflix.data.remote.model.discover.DiscoverTvShowNetwork
 import com.raflisalam.fakeneflix.domain.model.discover.DiscoverResult
 import com.raflisalam.fakeneflix.domain.repository.DiscoverRepository
 import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
 
 
 class GetDiscoverUseCaseImpl @Inject constructor(
@@ -39,26 +37,26 @@ class GetDiscoverUseCaseImpl @Inject constructor(
             id = this.id,
             title = this.title,
             overview = this.overview,
-            poster_path = this.posterPath,
-            release_date = this.releaseDate,
-            first_air_date = null, // Tidak ada firstAirDate untuk film
-            genre_ids = this.genreIds,
+            poster_path = this.poster_path,
+            release_date = this.release_date,
+            first_air_date = null, // this should null because on discover movie don't have object 'first_air_date'
+            genre_ids = this.genre_ids,
             media_type = mediaType,
-            vote_average = this.voteAverage
+            vote_average = this.vote_average
         )
     }
 
     private fun DiscoverTvShowNetwork.toDiscoverResult(mediaType: MediaType): DiscoverResult {
         return DiscoverResult(
             id = this.id,
-            title = this.name, // Menggunakan nama sebagai judul untuk acara TV
+            title = this.name, // this should be name because tv show endpoint use object name as a title
             overview = this.overview,
-            poster_path = this.posterPath,
-            release_date = null, // Tidak ada releaseDate untuk acara TV
-            first_air_date = this.firstAirDate,
-            genre_ids = this.genreIds,
+            poster_path = this.poster_path,
+            release_date = null, // this should null because on discover tv shows don't have object 'release_date'
+            first_air_date = this.first_air_date,
+            genre_ids = this.genre_ids,
             media_type = mediaType,
-            vote_average = this.voteAverage
+            vote_average = this.vote_average
         )
     }
 }

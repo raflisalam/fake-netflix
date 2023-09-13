@@ -1,5 +1,6 @@
 package com.raflisalam.fakeneflix.common.helper
 
+import android.util.Log
 import com.raflisalam.fakeneflix.common.enums.GenresList
 import com.raflisalam.fakeneflix.common.exception.GenresNotFoundException
 
@@ -29,11 +30,11 @@ object Convert {
         return careers
     }
 
-    fun genresListIdToListString(listId: List<Int>): String {
-        val rawGenreName = listId.mapNotNull { id ->
+    fun genresListIdToListString(listId: List<Int>): List<String> {
+        val genreName = listId.mapNotNull { id ->
             GenresList.values().find { it.value.id == id }?.value?.name
         }
-        return rawGenreName.joinToString(", ")
+        return genreName
     }
 
     fun genresToInt(string: String): Int {

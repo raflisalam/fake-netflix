@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="35dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.MaterialComponents.Chip.Choice"
+    style="@style/Widget.MaterialComponents.Chip.Filter"
     android:textSize="11sp"
     android:textColor="@color/chip_text"
     app:checkedIconVisible="false"
@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:text="ksadkadkakdak"
     app:chipStrokeColor="#66000000"
-    app:chipBackgroundColor="#33C0C0C0">
+    app:chipBackgroundColor="#2A2A2A">
 
 
 </com.google.android.material.chip.Chip>
