@@ -20,7 +20,7 @@ A simple project using [The Movie DB](https://www.themoviedb.org) based on Kotli
 ![preview2](preview/preview-2.gif)
 <br>
 ![preview3](preview/preview-3.gif)
-![preview4](preview/preview-4.gif)
+<img src="preview/preview-4.gif" width="180" height="320" alt="preview4">
 
 [Full Preview with good quality](https://youtu.be/LllustXSqcQ)
 
