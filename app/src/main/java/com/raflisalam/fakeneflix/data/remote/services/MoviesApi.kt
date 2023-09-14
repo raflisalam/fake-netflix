@@ -55,17 +55,11 @@ interface MoviesApi {
         @Query("query") moviesName: String
     ): Response<MoviesResponse>
 
-    @GET("trending/movie/{time_window}")
-    suspend fun getTrendingMovies(
-        @Path("time_window") timePeriod: String
-    ): Response<MoviesResponse>
-
 
     @GET("movie/{movie_id}?api_key=${Constant.API_KEY}&append_to_response=videos")
     suspend fun getDetailsMovieById(
         @Path("movie_id") moviesId: Int
     ): MovieDetailsDto
-
 
     //actors endpoint services
     @GET("person/popular?api_key${Constant.API_KEY}")
@@ -115,4 +109,10 @@ interface MoviesApi {
     suspend fun discoverTvShowsByGenre(
         @Query("with_genres") genresId: ArrayList<String>
     ): Response<DiscoverTvShowResponse>
+
+    @GET("trending/movie/{time_window}")
+    suspend fun getTrendingMovies(
+        @Path("time_window") timePeriod: String
+    ): Response<MoviesResponse>
+
 }

@@ -11,4 +11,5 @@ interface TvShowsRepository {
     suspend fun getDetailTvShowsById(seriesId: Int): TvShowsDetailsDto
 
     suspend fun getRecommendationsTvShows(seriesId: Int, page: Int): Flow<Status<List<TvShows>>>
+
 }

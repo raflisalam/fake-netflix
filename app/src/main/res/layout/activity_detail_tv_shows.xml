@@ -18,7 +18,7 @@
             android:layout_height="185dp"
             android:scaleType="centerCrop"
             android:src="@drawable/backdrop_path2"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/btn_back"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- <Button
+         <Button
              android:id="@+id/btnWatchTrailer"
              android:layout_width="wrap_content"
              android:layout_height="45dp"
@@ -56,13 +56,12 @@
              app:layout_constraintBottom_toTopOf="@+id/title_series"
              app:layout_constraintEnd_toEndOf="parent"
              app:shapeAppearance="@style/ButtonWatchTrailer" />
-     -->
+
         <TextView
             android:id="@+id/title_series"
             android:layout_width="0dp"
-            android:layout_marginEnd="5dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:text="Transformers: The Rise Of Beasts"
             android:textColor="@color/white"
             android:textSize="18sp"

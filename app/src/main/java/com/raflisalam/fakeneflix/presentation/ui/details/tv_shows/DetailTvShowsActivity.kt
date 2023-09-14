@@ -3,6 +3,7 @@ package com.raflisalam.fakeneflix.presentation.ui.details.tv_shows
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -11,8 +12,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.helper.Convert
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
 import com.raflisalam.fakeneflix.databinding.ActivityDetailTvShowsBinding
+import com.raflisalam.fakeneflix.domain.model.movies.WatchlistMovies
 import com.raflisalam.fakeneflix.domain.model.tv_shows.TvShowsDetail
 import com.raflisalam.fakeneflix.presentation.adapter.tvshows.TvShowsRecommendationsAdapter
 import com.raflisalam.fakeneflix.presentation.adapter.viewpager.ViewPagerAdapter
@@ -20,7 +23,10 @@ import com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.viewpager.Cast
 import com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.viewpager.DirectedByFragment
 import com.raflisalam.fakeneflix.presentation.ui.details.tv_shows.viewpager.SeasonsSeriesFragment
 import com.raflisalam.fakeneflix.presentation.viewmodel.TvShowsViewModel
+import com.raflisalam.fakeneflix.presentation.viewmodel.WatchlistMoviesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailTvShowsActivity : AppCompatActivity() {
@@ -29,6 +35,10 @@ class DetailTvShowsActivity : AppCompatActivity() {
 
     private val viewModel: TvShowsViewModel by viewModels()
     private lateinit var adapter: TvShowsRecommendationsAdapter
+
+    private val watchlistViewModel: WatchlistMoviesViewModel by viewModels()
+
+    private var watchlistState: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +107,7 @@ class DetailTvShowsActivity : AppCompatActivity() {
                 .apply(RequestOptions())
                 .into(imagePoster)
             titleSeries.text = data.titleTvShows
-            ratingSeries.text = data.rating.toString()
+            ratingSeries.text = data.rating?.let { Convert.roundDouble(it).toString() }
             timeRelease.text = data.release_date?.let { TimeUtils.formatDateToYears(it) }
             overviewTvshows.text = data.overview
             season.text = "${data.number_of_seasons} seasons - ${data.number_of_episodes} episodes"
@@ -110,6 +120,35 @@ class DetailTvShowsActivity : AppCompatActivity() {
                 chipGenreTv.addView(createChipGenre(it.name))
             }
             fetchRecommendationsTvShows()
+            checkTvShowsIsWatchlist(data)
+            watchlistMovies(data)
+        }
+    }
+
+    private fun checkTvShowsIsWatchlist(data: TvShowsDetail) {
+        lifecycleScope.launch {
+            val isWatchlist = watchlistViewModel.watchlistMovies.firstOrNull()?.any { it.id == data.seriesId} == true
+            if (isWatchlist) {
+                watchlistState = true
+                binding.btnWatchlist.isChecked = true
+            } else {
+                watchlistState = false
+                binding.btnWatchlist.isChecked = false
+            }
+        }
+    }
+
+    private fun watchlistMovies(data: TvShowsDetail) {
+        binding.btnWatchlist.setOnClickListener {
+            val movies = WatchlistMovies(
+                id = data.seriesId ?: 0,
+                title = data.titleTvShows ?: "",
+                image_poster = data.image_poster ?: "",
+                description = data.overview ?: "",
+                rating = data.rating ?: 0.0,
+                release_date = data.release_date ?: ""
+            )
+            watchlistViewModel.toggleWatchlistMovies(movies)
         }
     }
 

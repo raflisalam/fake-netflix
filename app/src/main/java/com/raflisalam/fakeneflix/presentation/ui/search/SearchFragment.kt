@@ -49,7 +49,6 @@ class SearchFragment : Fragment(), OnItemDataClickListener {
     private var selectedGenres = ArrayList<String>()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

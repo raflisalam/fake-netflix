@@ -18,6 +18,7 @@ import com.google.android.material.chip.Chip
 import com.raflisalam.fakeneflix.R
 import com.raflisalam.fakeneflix.common.Constant
 import com.raflisalam.fakeneflix.common.Status
+import com.raflisalam.fakeneflix.common.helper.Convert
 import com.raflisalam.fakeneflix.common.utils.ActorsIdStateFlow
 import com.raflisalam.fakeneflix.common.utils.OnItemDataClickListener
 import com.raflisalam.fakeneflix.common.utils.TimeUtils
@@ -135,10 +136,10 @@ class DetailMoviesActivity : AppCompatActivity(), OnItemDataClickListener {
                     .apply(RequestOptions())
                     .into(imagePoster)
                 titleMovies.text = data.title
-                ratingMovies.text = "${data.rating} |"
+                ratingMovies.text = "${Convert.roundDouble(data.rating)} |"
                 ratingVotes.text = data.rating_vote.toString()
                 timeMovies.text = TimeUtils.formatRuntimeToHoursMinutes(data.runtime)
-                synopsisMovies.text = data.synopsis
+                overviewMovies.text = data.synopsis
                 originalTitle.text = data.original_title
                 releaseDate.text = TimeUtils.formatDate(data.release_date)
                 production.text = data.productionCountry[0].name
